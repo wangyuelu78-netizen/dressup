@@ -192,6 +192,76 @@ button {
   align-items: start;
 }
 
+.character-selector {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 24px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.58);
+}
+
+.character-selector h2 {
+  margin: 0 0 6px;
+  font-size: 18px;
+}
+
+.character-selector p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.character-options {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.character-option {
+  display: grid;
+  gap: 8px;
+  justify-items: center;
+  min-height: 118px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px 8px;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.character-option-active {
+  border-color: var(--jade);
+  outline: 2px solid rgba(47, 111, 103, 0.18);
+}
+
+.character-thumb {
+  width: 72px;
+  height: 72px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #f6f1e8;
+}
+
+.character-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.character-thumb-placeholder {
+  color: var(--muted);
+  font-size: 12px;
+}
+
 .dressup-workspace {
   display: grid;
   gap: 16px;
@@ -244,6 +314,8 @@ button {
   inset: 0;
   display: grid;
   place-items: center;
+  align-content: center;
+  gap: 8px;
   border-radius: 8px;
   background:
     radial-gradient(circle at 50% 22%, #e5bba0 0 13%, transparent 13.5%),
@@ -252,6 +324,11 @@ button {
   border: 1px dashed var(--line);
   color: var(--muted);
   font-weight: 800;
+}
+
+.character-placeholder small {
+  font-size: 13px;
+  font-weight: 700;
 }
 
 .layer-fallback {
@@ -445,10 +522,15 @@ button {
   }
 
   .page-header,
+  .character-selector,
   .dressup-layout,
   .home-grid,
   .achievement-grid {
     grid-template-columns: 1fr;
+  }
+
+  .character-options {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .page-header {

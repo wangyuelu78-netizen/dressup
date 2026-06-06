@@ -1,6 +1,4 @@
-import { useState } from "react";
-
-const baseCharacterSrc = "/assets/characters/cat/base.png";
+import { useEffect, useState } from "react";
 
 function CostumeLayer({ item }) {
   const [hasError, setHasError] = useState(false);
@@ -24,21 +22,26 @@ function CostumeLayer({ item }) {
   );
 }
 
-export default function DressCanvas({ equippedItems }) {
+export default function DressCanvas({ equippedItems, selectedCharacter }) {
   const [baseMissing, setBaseMissing] = useState(false);
+
+  useEffect(() => {
+    setBaseMissing(false);
+  }, [selectedCharacter.src]);
 
   return (
     <section className="dressup-canvas" aria-label="角色换装展示区">
       <div className="canvas-stage canvas-stage-square">
         {baseMissing ? (
           <div className="character-placeholder">
-            <span>base.png</span>
+            <span>{selectedCharacter.name}</span>
+            <small>角色素材待补充</small>
           </div>
         ) : (
           <img
             className="character-base"
-            src={baseCharacterSrc}
-            alt="基础卡通角色"
+            src={selectedCharacter.src}
+            alt={selectedCharacter.name}
             onError={() => setBaseMissing(true)}
           />
         )}

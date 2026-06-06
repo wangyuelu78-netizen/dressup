@@ -8,6 +8,8 @@ export default function ItemPanel({
   onCategoryChange,
   onEquipItem,
 }) {
+  const isSelected = (item) => Object.values(equipped).some((equippedItem) => equippedItem.id === item.id);
+
   return (
     <aside className="item-panel" aria-label="文物素材面板">
       <CategoryTabs
@@ -19,7 +21,7 @@ export default function ItemPanel({
         {items.map((item) => (
           <button
             key={item.id}
-            className={`item-card${equipped[item.category]?.id === item.id ? " item-card-active" : ""}`}
+            className={`item-card${isSelected(item) ? " item-card-active" : ""}`}
             type="button"
             onClick={() => onEquipItem(item)}
           >

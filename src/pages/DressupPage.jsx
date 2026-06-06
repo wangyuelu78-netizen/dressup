@@ -1,5 +1,6 @@
 import AchievementModal from "../features/achievements/components/AchievementModal.jsx";
 import SourceCard from "../features/achievements/components/SourceCard.jsx";
+import CharacterSelector from "../features/dressup/components/CharacterSelector.jsx";
 import DressCanvas from "../features/dressup/components/DressCanvas.jsx";
 import ItemPanel from "../features/dressup/components/ItemPanel.jsx";
 import useDressUpState from "../features/dressup/hooks/useDressUpState.js";
@@ -10,6 +11,7 @@ export default function DressUpPage() {
     activeAchievement,
     activeCategory,
     categories,
+    characters,
     closeAchievement,
     currentSource,
     equipped,
@@ -17,6 +19,8 @@ export default function DressUpPage() {
     equipItem,
     resetDressUp,
     setActiveCategory,
+    selectedCharacter,
+    selectCharacter,
     visibleItems,
   } = useDressUpState();
 
@@ -31,9 +35,15 @@ export default function DressUpPage() {
         <Button onClick={resetDressUp}>清空搭配</Button>
       </header>
 
+      <CharacterSelector
+        characters={characters}
+        selectedCharacter={selectedCharacter}
+        onSelectCharacter={selectCharacter}
+      />
+
       <div className="dressup-layout">
         <div className="dressup-workspace">
-          <DressCanvas equippedItems={equippedItems} />
+          <DressCanvas equippedItems={equippedItems} selectedCharacter={selectedCharacter} />
           {equippedItems.length > 0 && (
             <div className="selected-strip" aria-label="当前已装备物品">
               {equippedItems.map((item) => (
