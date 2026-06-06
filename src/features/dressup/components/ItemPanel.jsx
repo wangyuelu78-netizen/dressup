@@ -1,95 +1,68 @@
-export default function ItemPanel({
-  activeCategory,
-  categories,
-  items,
-  equipped,
-  onCategoryChange,
-  onEquipItem,
-  onReset,
-  onViewSource,
-}) {
-  const isSelected = (item) => Object.values(equipped).some((equippedItem) => equippedItem.id === item.id);
+import { useMemo, useState } from "react";
+import { itemCategories } from "../../../data/items.ts";
+
+export default function ItemPanel({ items, equippedItems, onEquipItem }) {
+  const [activeCategory, setActiveCategory] = useState("top");
+  const equippedIds = useMemo(
+    () => new Set(equippedItems.map((item) => item.id)),
+    [equippedItems],
+  );
+  const visibleItems = items.filter((item) => item.category === activeCategory);
 
   return (
     <aside className="gf-panel" aria-label="衣物选择面板">
-      <div className="gf-panel-vertical" aria-hidden="true">
-        <span>珍宝阁</span>
-        <span className="gf-panel-vertical-sub">
-          {categories.find((category) => category.id === activeCategory)?.name ?? "分类"}
-        </span>
-      </div>
-
       <div className="gf-panel-header">
-        <div className="gf-category-row" role="tablist" aria-label="素材分类">
-          {categories.map((category) => (
-            <button
-              key={category.id}
-              className={`gf-category-chip${category.id === activeCategory ? " gf-category-chip-active" : ""}`}
-              type="button"
-              onClick={() => onCategoryChange(category.id)}
-              aria-pressed={category.id === activeCategory}
-            >
-              <span className="material-symbols-outlined">
-                {category.id === "head"
-                  ? "face"
-                  : category.id === "top"
-                    ? "dry_cleaning"
-                    : category.id === "bottom"
-                      ? "apparel"
-                      : category.id === "accessory"
-                        ? "auto_fix_high"
-                        : "category"}
-              </span>
-              <span className="gf-category-chip-label">{category.name}</span>
-            </button>
-          ))}
-        </div>
+        <h2>衣物选择</h2>
+        <p>点击衣物即可装备到当前角色身上。</p>
       </div>
 
-      <div className="gf-item-list custom-scrollbar" aria-label="素材列表">
-        {items.map((item) => {
-          const selected = isSelected(item);
+      <div className="gf-category-row" role="tablist" aria-label="衣物分类">
+        {itemCategories.map((category) => (
+          <button
+            key={category.id}
+            className={`gf-category-chip${category.id === activeCategory ? " gf-category-chip-active" : ""}`}
+            type="button"
+            onClick={() => setActiveCategory(category.id)}
+            aria-pressed={category.id === activeCategory}
+          >
+            <span className="gf-category-chip-label">{category.name}</span>
+          </button>
+        ))}
+      </div>
+
+      <div className="gf-item-list custom-scrollbar" aria-label="衣物列表">
+        {visibleItems.length === 0 && (
+          <p className="gf-panel-empty">这个分类暂时没有可选衣物。</p>
+        )}
+        {visibleItems.map((item) => {
+          const selected = equippedIds.has(item.id);
+
           return (
             <button
               key={item.id}
-              className={`gf-item-bubble${selected ? " gf-item-bubble-active" : ""}`}
+              className={`gf-item-card${selected ? " gf-item-card-active" : ""}`}
               type="button"
               onClick={() => onEquipItem(item)}
               aria-pressed={selected}
-              title={`${item.name}（${item.sourcePainting}·${item.sourceRole}）`}
             >
-              <img
-                src={item.src}
-                alt={item.name}
-                onError={(event) => {
-                  event.currentTarget.style.opacity = "0";
-                }}
-              />
-              {selected && (
-                <span className="gf-item-overlay" aria-hidden="true">
-                  <span className="material-symbols-outlined">check</span>
-                </span>
-              )}
+              <span className="gf-item-thumb" aria-hidden="true">
+                <img
+                  src={item.src}
+                  alt=""
+                  onError={(event) => {
+                    event.currentTarget.style.display = "none";
+                  }}
+                />
+                <span>素材缺失</span>
+              </span>
+              <span className="gf-item-info">
+                <strong>{item.name}</strong>
+                <small>{item.sourcePainting}</small>
+                <small>{item.sourceRole}</small>
+              </span>
             </button>
           );
         })}
-      </div>
-
-      <div className="gf-panel-actions">
-        <button
-          className="gf-action-button gf-action-button-ghost"
-          type="button"
-          onClick={() => (onReset ? onReset() : null)}
-        >
-          清空搭配
-        </button>
-        <button
-          className="gf-action-button gf-action-button-primary"
-          type="button"
-          onClick={() => (onViewSource ? onViewSource() : null)}
-        >
-          查看来源
-        </button>
       </div>
     </aside>
   );

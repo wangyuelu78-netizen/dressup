@@ -7,25 +7,14 @@ export interface DressSet {
 
 export const sets: DressSet[] = [
   {
-    id: "qingming_delivery_01",
-    name: "《清明上河图》外卖员形象",
+    id: "night_banquet_pipa_lady",
+    name: "夜店蹦迪套装",
     requiredItemIds: [
-      "qingming_delivery_01_top",
-      "qingming_delivery_01_bottom",
-      "qingming_delivery_01_foodbox",
+      "night_banquet_pipa_lady_top",
+      "night_banquet_pipa_lady_bottom",
+      "night_banquet_pipa_lady_pipa",
     ],
-    achievementId: "qingming_delivery_01",
-  },
-  {
-    id: "tang_lady_01",
-    name: "仕女图 / 唐代仕女形象",
-    requiredItemIds: [
-      "tang_lady_01_hair",
-      "tang_lady_01_flower",
-      "tang_lady_01_shawl",
-      "tang_lady_01_dress",
-    ],
-    achievementId: "tang_lady_01",
+    achievementId: "night_club_pipa",
   },
   {
     id: "tang_yide_horse_attendant_01",
@@ -37,23 +26,23 @@ export const sets: DressSet[] = [
     achievementId: "yide_horse_attendant",
   },
   {
-    id: "night_banquet_pipa_lady",
-    name: "《韩熙载夜宴图》琵琶女",
+    id: "qingming_delivery_01",
+    name: "清明送餐人物套装",
     requiredItemIds: [
-      "night_banquet_pipa_lady_top",
-      "night_banquet_pipa_lady_skirt",
-      "night_banquet_pipa_lady_pipa",
+      "qingming_delivery_01_top",
+      "qingming_delivery_01_bottom",
+      "qingming_delivery_01_foodbox",
     ],
-    achievementId: "night_banquet_pipa_lady",
+    achievementId: "song_delivery",
   },
   {
-    id: "night_banquet_clapping_lady",
-    name: "《韩熙载夜宴图》鼓掌女",
+    id: "tang_lady_01",
+    name: "唐代仕女套装",
     requiredItemIds: [
-      "night_banquet_clapping_lady_headwear",
-      "night_banquet_clapping_lady_robe",
-      "night_banquet_clapping_lady_belt",
+      "tang_lady_01_top",
+      "tang_lady_01_bottom",
+      "tang_lady_01_pibo",
     ],
-    achievementId: "night_banquet_clapping_lady",
+    achievementId: "tang_lady_beauty",
   },
 ];

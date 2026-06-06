@@ -501,6 +501,104 @@ button {
   justify-content: flex-end;
 }
 
+.gf-game-header {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto 18px;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 24px;
+}
+
+.gf-game-layout {
+  width: min(1180px, calc(100% - 32px));
+  margin: 20px auto 0;
+  display: grid;
+  grid-template-columns: minmax(320px, 1fr) 380px;
+  gap: 20px;
+  align-items: start;
+}
+
+.gf-canvas-column {
+  min-width: 0;
+}
+
+.gf-panel h2 {
+  margin: 0 0 6px;
+  font-size: 20px;
+}
+
+.gf-panel p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.gf-panel-empty {
+  padding: 18px;
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.48);
+}
+
+.gf-item-card {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 82px 1fr;
+  gap: 12px;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--ink);
+  text-align: left;
+}
+
+.gf-item-card-active {
+  border-color: var(--jade);
+  outline: 2px solid rgba(47, 111, 103, 0.18);
+}
+
+.gf-item-thumb {
+  position: relative;
+  width: 82px;
+  height: 82px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #f6f1e8;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.gf-item-thumb img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 1;
+}
+
+.gf-item-info {
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.gf-item-info strong {
+  color: var(--ink);
+}
+
+.gf-item-info small {
+  color: var(--muted);
+}
+
 @media (max-width: 900px) {
   .app-shell {
     grid-template-columns: 1fr;
@@ -523,10 +621,16 @@ button {
 
   .page-header,
   .character-selector,
+  .gf-game-header,
+  .gf-game-layout,
   .dressup-layout,
   .home-grid,
   .achievement-grid {
     grid-template-columns: 1fr;
+  }
+
+  .gf-game-header {
+    display: grid;
   }
 
   .character-options {
@@ -986,5 +1090,69 @@ button {
 
   .gf-panel-vertical {
     display: none;
+  }
+}
+
+.dress-canvas-wrap {
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.62);
+  box-shadow: var(--shadow);
+}
+
+.dress-canvas {
+  position: relative;
+  width: 512px;
+  height: 512px;
+  margin: 0 auto;
+  overflow: hidden;
+  background: #f7f1e8;
+  border-radius: 24px;
+}
+
+.dress-layer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 512px;
+  height: 512px;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+}
+
+.base-character {
+  z-index: 1;
+}
+
+.costume-layer {
+  position: absolute;
+}
+
+.gf-canvas-column .dress-canvas-wrap {
+  min-height: auto;
+}
+
+.gf-item-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  justify-content: stretch;
+  padding: 16px 14px;
+}
+
+.gf-item-card {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 82px 1fr;
+}
+
+@media (max-width: 620px) {
+  .dress-canvas-wrap {
+    overflow-x: auto;
+    justify-content: start;
   }
 }
