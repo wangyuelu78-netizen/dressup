@@ -7,12 +7,19 @@ import { findUnlockedAchievement } from "../../achievements/utils/findUnlockedAc
 
 const multiEquipCategories = new Set(["accessory"]);
 
-export default function useDressUpState() {
+export default function useDressUpState({
+  onUnlockAchievement,
+  unlockedAchievementIds = [],
+} = {}) {
   const [activeCategory, setActiveCategory] = useState(itemCategories[0].id);
   const [selectedCharacter, setSelectedCharacter] = useState(characters[0]);
   const [equipped, setEquipped] = useState({});
   const [activeAchievement, setActiveAchievement] = useState(null);
-  const [unlockedAchievementIds, setUnlockedAchievementIds] = useState(new Set());
+
+  const unlockedAchievementSet = useMemo(
+    () => new Set(unlockedAchievementIds),
+    [unlockedAchievementIds],
+  );
 
   const visibleItems = useMemo(
     () => items.filter((item) => item.category === activeCategory),
@@ -39,11 +46,13 @@ export default function useDressUpState() {
       Object.values(nextEquipped).map((equippedItem) => equippedItem.id),
       sets,
       achievements,
-      unlockedAchievementIds,
+      unlockedAchievementSet,
     );
 
     if (unlocked) {
-      setUnlockedAchievementIds((current) => new Set([...current, unlocked.id]));
+      if (onUnlockAchievement) {
+        onUnlockAchievement(unlocked.id);
+      }
       setActiveAchievement(unlocked);
     }
   }
@@ -51,10 +60,6 @@ export default function useDressUpState() {
   function resetDressUp() {
     setEquipped({});
     setActiveAchievement(null);
-  }
-
-  function openAchievementForTest(achievement) {
-    setActiveAchievement(achievement);
   }
 
   function selectCharacter(character) {
@@ -72,7 +77,6 @@ export default function useDressUpState() {
     equipped,
     equippedItems,
     equipItem,
-    openAchievementForTest,
     resetDressUp,
     setActiveCategory,
     selectedCharacter,

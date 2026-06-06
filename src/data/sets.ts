@@ -58,4 +58,14 @@ export const sets: DressSet[] = [
     ],
     achievementId: "night_banquet_clapping_lady",
   },
+  {
+    id: "yide_prince_horse",
+    name: "《懿德太子墓壁画》牵马侍从",
+    requiredItemIds: [
+      "yide_prince_horse_top",
+      "yide_prince_horse_bottom",
+      "yide_prince_horse_reins",
+    ],
+    achievementId: "yide_prince_horse",
+  },
 ];

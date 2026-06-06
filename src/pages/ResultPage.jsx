@@ -1,57 +1,70 @@
 import Button from "../shared/components/Button.jsx";
 import { achievements } from "../data/achievements.ts";
+import { sets } from "../data/sets.ts";
 import AchievementImage from "../features/achievements/components/AchievementImage.jsx";
 
-export default function ResultPage({ onNavigate }) {
-  const [featuredAchievement, ...otherAchievements] = achievements;
+export default function ResultPage({ onNavigate, unlockedAchievementIds = [] }) {
+  const unlockedAchievementSet = new Set(unlockedAchievementIds);
+  const setsByAchievementId = new Map(
+    sets.map((set) => [set.achievementId, set]),
+  );
 
   return (
-    <section className="page">
-      <header className="page-header">
+    <section className="mini-page archive-page">
+      <header className="mini-topbar">
         <div>
-          <p className="page-kicker">ACHIEVEMENTS</p>
-          <h1 className="page-title">成就档案</h1>
-          <p className="page-copy">
-            这里展示当前可解锁的古画服饰成就。每一张卡都对应一位画中人物和一套完整装扮。
-          </p>
+          <p>ACHIEVEMENTS</p>
+          <h1>成就簿</h1>
         </div>
-        <div className="result-actions">
-          <Button onClick={() => onNavigate("dressup")}>继续搭配</Button>
-        </div>
+        <Button className="mini-pill-button" onClick={() => onNavigate("dressup")}>
+          去搭配
+        </Button>
       </header>
 
-      {featuredAchievement && (
-        <article className="achievement-hero-card">
-          <div>
-            <p className="achievement-card-kicker">FEATURED ACHIEVEMENT</p>
-            <h2>{featuredAchievement.title}</h2>
-            <p className="achievement-card-meta">
-              {featuredAchievement.sourcePainting} · {featuredAchievement.sourceRole}
-            </p>
-            <p>{featuredAchievement.description}</p>
-          </div>
-          <AchievementImage
-            achievement={featuredAchievement}
-            className="achievement-hero-image"
-          />
-          <span>{featuredAchievement.scene}</span>
-        </article>
-      )}
+      <div className="archive-summary">
+        <span className="material-symbols-outlined">military_tech</span>
+        <p>
+          已解锁 {unlockedAchievementIds.length} / {achievements.length}
+        </p>
+      </div>
 
-      <div className="achievement-grid achievement-poster-grid">
-        {otherAchievements.map((achievement) => (
-          <article className="achievement-poster-card" key={achievement.id}>
-            <AchievementImage
-              achievement={achievement}
-              className="achievement-poster-image"
-            />
-            <p className="achievement-card-kicker">{achievement.sourcePainting}</p>
-            <h3>{achievement.title}</h3>
-            <p className="achievement-card-meta">{achievement.sourceRole}</p>
-            <p>{achievement.description}</p>
-            {achievement.scene && <span>{achievement.scene}</span>}
-          </article>
-        ))}
+      <div className="archive-list">
+        {achievements.map((achievement) => {
+          const unlocked = unlockedAchievementSet.has(achievement.id);
+          const set = setsByAchievementId.get(achievement.id);
+
+          return (
+            <article
+              className={`archive-card${unlocked ? "" : " archive-card-locked"}`}
+              key={achievement.id}
+            >
+              {unlocked ? (
+                <AchievementImage
+                  achievement={achievement}
+                  className="archive-card-image"
+                />
+              ) : (
+                <div className="archive-card-lock" aria-hidden="true">
+                  <span className="material-symbols-outlined">lock</span>
+                </div>
+              )}
+              <div className="archive-card-copy">
+                <span>{achievement.sourcePainting}</span>
+                <h2>{unlocked ? achievement.title : "待解锁成就"}</h2>
+                <p>{achievement.sourceRole}</p>
+                {unlocked ? (
+                  <p>{achievement.description}</p>
+                ) : (
+                  <p>
+                    搭出{set?.name ?? "对应古画人物套装"}
+                    {set ? `，需要 ${set.requiredItemIds.length} 件。` : "。"}
+                  </p>
+                )}
+                <strong>{unlocked ? (achievement.scene ?? "已获得") : "未解锁"}</strong>
+              </div>
+            </article>
+          );
+        })}
       </div>
     </section>
   );
