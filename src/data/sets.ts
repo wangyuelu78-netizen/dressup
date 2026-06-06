@@ -18,7 +18,7 @@ export const sets: DressSet[] = [
   },
   {
     id: "tang_lady_01",
-    name: "仕女图 / 唐代仕女形象",
+    name: "《簪花仕女图》唐代仕女",
     requiredItemIds: [
       "tang_lady_01_hair",
       "tang_lady_01_flower",
@@ -57,5 +57,15 @@ export const sets: DressSet[] = [
       "night_banquet_clapping_lady_belt",
     ],
     achievementId: "night_banquet_clapping_lady",
+  },
+  {
+    id: "yide_prince_horse",
+    name: "《懿德太子墓壁画》牵马侍从",
+    requiredItemIds: [
+      "yide_prince_horse_top",
+      "yide_prince_horse_bottom",
+      "yide_prince_horse_reins",
+    ],
+    achievementId: "yide_prince_horse",
   },
 ];

@@ -1,24 +1,53 @@
+import { useState } from "react";
+
+function ItemBubble({ item, selected, onEquipItem }) {
+  const [missing, setMissing] = useState(false);
+
+  return (
+    <button
+      className={`gf-item-bubble${selected ? " gf-item-bubble-active" : ""}`}
+      type="button"
+      onClick={() => onEquipItem(item)}
+      aria-pressed={selected}
+      title={`${item.name}（${item.sourcePainting}·${item.sourceRole}）`}
+    >
+      {missing ? (
+        <span className="gf-item-placeholder" aria-hidden="true">
+          <span className="material-symbols-outlined">local_florist</span>
+        </span>
+      ) : (
+        <img
+          src={item.src}
+          alt={item.name}
+          onError={() => setMissing(true)}
+        />
+      )}
+      {selected && (
+        <span className="gf-item-overlay" aria-hidden="true">
+          <span className="material-symbols-outlined">check</span>
+        </span>
+      )}
+    </button>
+  );
+}
+
 export default function ItemPanel({
   activeCategory,
   categories,
+  children,
   items,
   equipped,
   onCategoryChange,
+  onConfirm,
   onEquipItem,
   onReset,
-  onViewSource,
 }) {
   const isSelected = (item) => Object.values(equipped).some((equippedItem) => equippedItem.id === item.id);
+  const hasEquippedItems = Object.keys(equipped).length > 0;
 
   return (
     <aside className="gf-panel" aria-label="衣物选择面板">
-      <div className="gf-panel-vertical" aria-hidden="true">
-        <span>珍宝阁</span>
-        <span className="gf-panel-vertical-sub">
-          {categories.find((category) => category.id === activeCategory)?.name ?? "分类"}
-        </span>
-      </div>
-
+      {children}
       <div className="gf-panel-header">
         <div className="gf-category-row" role="tablist" aria-label="素材分类">
           {categories.map((category) => (
@@ -50,45 +79,33 @@ export default function ItemPanel({
         {items.map((item) => {
           const selected = isSelected(item);
           return (
-            <button
+            <ItemBubble
               key={item.id}
-              className={`gf-item-bubble${selected ? " gf-item-bubble-active" : ""}`}
-              type="button"
-              onClick={() => onEquipItem(item)}
-              aria-pressed={selected}
-              title={`${item.name}（${item.sourcePainting}·${item.sourceRole}）`}
-            >
-              <img
-                src={item.src}
-                alt={item.name}
-                onError={(event) => {
-                  event.currentTarget.style.opacity = "0";
-                }}
-              />
-              {selected && (
-                <span className="gf-item-overlay" aria-hidden="true">
-                  <span className="material-symbols-outlined">check</span>
-                </span>
-              )}
-            </button>
+              item={item}
+              selected={selected}
+              onEquipItem={onEquipItem}
+            />
           );
         })}
       </div>
 
       <div className="gf-panel-actions">
         <button
+          className="gf-action-button gf-action-button-primary"
+          type="button"
+          onClick={() => (onConfirm ? onConfirm() : null)}
+          disabled={!hasEquippedItems}
+        >
+          <span className="material-symbols-outlined">check_circle</span>
+          确认搭配
+        </button>
+        <button
           className="gf-action-button gf-action-button-ghost"
           type="button"
           onClick={() => (onReset ? onReset() : null)}
         >
+          <span className="material-symbols-outlined">restart_alt</span>
           清空搭配
-        </button>
-        <button
-          className="gf-action-button gf-action-button-primary"
-          type="button"
-          onClick={() => (onViewSource ? onViewSource() : null)}
-        >
-          查看来源
         </button>
       </div>
     </aside>

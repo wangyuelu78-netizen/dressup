@@ -1,45 +1,60 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import HomePage from "../pages/HomePage.jsx";
-import DressUpPage from "../pages/DressUpPage.jsx";
+import DressupPage from "../pages/DressupPage.jsx";
 import ResultPage from "../pages/ResultPage.jsx";
-import Button from "../shared/components/Button.jsx";
+import { loadFromStorage, saveToStorage } from "../shared/utils/storageUtils.js";
+
+const unlockedAchievementsKey = "dressup_unlocked_achievement_ids";
 
 const pages = {
-  home: { label: "首页", component: HomePage },
-  dressup: { label: "画中衣橱", component: DressUpPage },
-  result: { label: "成就档案", component: ResultPage },
+  dressup: { label: "换装", icon: "styler", component: DressupPage },
+  result: { label: "成就", icon: "military_tech", component: ResultPage },
+  source: { label: "来源", icon: "auto_stories", component: HomePage },
 };
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState("home");
+  const [currentPage, setCurrentPage] = useState("dressup");
+  const [unlockedAchievementIds, setUnlockedAchievementIds] = useState(() =>
+    loadFromStorage(unlockedAchievementsKey, []),
+  );
   const CurrentPage = pages[currentPage].component;
 
-  if (currentPage === "dressup") {
-    return <CurrentPage onNavigate={setCurrentPage} />;
+  useEffect(() => {
+    saveToStorage(unlockedAchievementsKey, unlockedAchievementIds);
+  }, [unlockedAchievementIds]);
+
+  function unlockAchievement(achievementId) {
+    setUnlockedAchievementIds((current) => {
+      if (current.includes(achievementId)) {
+        return current;
+      }
+
+      return [...current, achievementId];
+    });
   }
 
   return (
-    <main className="app-shell">
-      <aside className="app-sidebar">
-        <div className="app-brand">
-          <strong>一键入画</strong>
-          <span>古画服饰换装互动</span>
-        </div>
-        <nav className="app-nav" aria-label="页面导航">
+    <main className="mini-shell">
+      <section className="mini-screen">
+        <CurrentPage
+          onNavigate={setCurrentPage}
+          onUnlockAchievement={unlockAchievement}
+          unlockedAchievementIds={unlockedAchievementIds}
+        />
+        <nav className="mini-tabbar" aria-label="底部导航">
           {Object.entries(pages).map(([key, page]) => (
-            <Button
+            <button
               key={key}
-              variant={currentPage === key ? "active" : "ghost"}
+              className={`mini-tab${currentPage === key ? " mini-tab-active" : ""}`}
+              type="button"
               onClick={() => setCurrentPage(key)}
+              aria-current={currentPage === key ? "page" : undefined}
             >
-              {page.label}
-            </Button>
+              <span className="material-symbols-outlined">{page.icon}</span>
+              <span>{page.label}</span>
+            </button>
           ))}
         </nav>
-      </aside>
-
-      <section className="app-main">
-        <CurrentPage onNavigate={setCurrentPage} />
       </section>
     </main>
   );
