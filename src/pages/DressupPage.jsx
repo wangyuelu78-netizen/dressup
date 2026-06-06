@@ -1,20 +1,25 @@
 import AchievementModal from "../features/achievements/components/AchievementModal.jsx";
 import CharacterSelector from "../features/dressup/components/CharacterSelector.jsx";
-import DressCanvas from "../features/dressup/components/DressCanvas.jsx";
 import ItemPanel from "../features/dressup/components/ItemPanel.jsx";
+import VideoResult from "../features/dressup/components/VideoResult.jsx";
 import useDressUpState from "../features/dressup/hooks/useDressupState.js";
 
 export default function DressUpPage() {
   const {
     characters,
     closeAchievement,
-    equippedItems,
-    equipItem,
     isAchievementOpen,
-    items,
+    message,
+    outfits,
     resetDressUp,
+    result,
+    selectedBottomOutfitId,
     selectedCharacter,
+    selectedCharacterId,
+    selectedTopOutfitId,
+    selectBottomOutfit,
     selectCharacter,
+    selectTopOutfit,
     unlockedAchievement,
   } = useDressUpState();
 
@@ -24,7 +29,7 @@ export default function DressUpPage() {
         <div>
           <p className="page-kicker">一键入画</p>
           <h1 className="page-title">画中衣橱</h1>
-          <p className="page-copy">选择角色，穿上古画人物服饰，解锁对应成就。</p>
+          <p className="page-copy">选择小猫和成套上下装，进入预生成画中视频。</p>
         </div>
         <button className="button button-primary" type="button" onClick={resetDressUp}>
           清空搭配
@@ -33,22 +38,25 @@ export default function DressUpPage() {
 
       <CharacterSelector
         characters={characters}
-        selectedCharacter={selectedCharacter}
+        selectedCharacterId={selectedCharacterId}
         onSelectCharacter={selectCharacter}
       />
 
       <section className="gf-game-layout">
         <div className="gf-canvas-column">
-          <DressCanvas
-            equippedItems={equippedItems}
+          <VideoResult
+            message={message}
+            result={result}
             selectedCharacter={selectedCharacter}
           />
         </div>
 
         <ItemPanel
-          equippedItems={equippedItems}
-          items={items}
-          onEquipItem={equipItem}
+          outfits={outfits}
+          selectedBottomOutfitId={selectedBottomOutfitId}
+          selectedTopOutfitId={selectedTopOutfitId}
+          onSelectBottomOutfit={selectBottomOutfit}
+          onSelectTopOutfit={selectTopOutfit}
         />
       </section>
 

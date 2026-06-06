@@ -1,79 +1,119 @@
 import { useMemo, useState } from "react";
-import { achievements } from "../../../data/achievements.ts";
+import { achievementMap } from "../../../data/achievements.ts";
 import { characters } from "../../../data/characters.ts";
-import { items } from "../../../data/items.ts";
-import { sets } from "../../../data/sets.ts";
+import { outfits } from "../../../data/outfits.ts";
+import { videoMap } from "../../../data/videos.ts";
+
+const mismatchMessage = "上下装不是同一套，暂时无法进入画中。";
 
 export default function useDressUpState() {
-  const [selectedCharacter, setSelectedCharacter] = useState(characters[0]);
-  const [equippedItemsByCategory, setEquippedItemsByCategory] = useState({});
+  const [selectedCharacterId, setSelectedCharacterId] = useState(null);
+  const [selectedTopOutfitId, setSelectedTopOutfitId] = useState(null);
+  const [selectedBottomOutfitId, setSelectedBottomOutfitId] = useState(null);
+  const [message, setMessage] = useState("");
+  const [result, setResult] = useState(null);
   const [unlockedAchievement, setUnlockedAchievement] = useState(null);
   const [isAchievementOpen, setIsAchievementOpen] = useState(false);
 
-  const equippedItems = useMemo(
-    () =>
-      Object.values(equippedItemsByCategory).sort(
-        (left, right) => left.zIndex - right.zIndex,
-      ),
-    [equippedItemsByCategory],
+  const selectedCharacter = useMemo(
+    () => characters.find((character) => character.id === selectedCharacterId) ?? null,
+    [selectedCharacterId],
   );
 
-  function checkAchievement(nextEquippedItemsByCategory) {
-    const equippedIds = Object.values(nextEquippedItemsByCategory)
-      .filter(Boolean)
-      .map((item) => item.id);
+  const selectedTopOutfit = useMemo(
+    () => outfits.find((outfit) => outfit.id === selectedTopOutfitId) ?? null,
+    [selectedTopOutfitId],
+  );
 
-    const matchedSet = sets.find((set) =>
-      set.requiredItemIds.every((id) => equippedIds.includes(id)),
-    );
+  const selectedBottomOutfit = useMemo(
+    () => outfits.find((outfit) => outfit.id === selectedBottomOutfitId) ?? null,
+    [selectedBottomOutfitId],
+  );
 
-    if (!matchedSet) {
+  function buildResult(characterId, outfitId) {
+    const outfit = outfits.find((item) => item.id === outfitId);
+
+    if (!characterId || !outfit) {
+      return null;
+    }
+
+    const videoKey = `${characterId}_${outfitId}`;
+    const achievement = achievementMap[videoKey] ?? null;
+
+    return {
+      achievement,
+      outfit,
+      videoKey,
+      videoSrc: videoMap[videoKey],
+    };
+  }
+
+  function evaluateSelection(nextCharacterId, nextTopOutfitId, nextBottomOutfitId) {
+    setResult(null);
+    setUnlockedAchievement(null);
+    setIsAchievementOpen(false);
+
+    if (!nextCharacterId || !nextTopOutfitId || !nextBottomOutfitId) {
+      setMessage("");
       return;
     }
 
-    const achievement = achievements.find(
-      (item) => item.id === matchedSet.achievementId,
-    );
+    if (nextTopOutfitId !== nextBottomOutfitId) {
+      setMessage(mismatchMessage);
+      return;
+    }
 
-    if (achievement) {
-      setUnlockedAchievement(achievement);
+    const nextResult = buildResult(nextCharacterId, nextTopOutfitId);
+    setMessage("");
+    setResult(nextResult);
+
+    if (nextResult?.achievement) {
+      setUnlockedAchievement(nextResult.achievement);
       setIsAchievementOpen(true);
     }
   }
 
-  function equipItem(item) {
-    const nextEquippedItemsByCategory = {
-      ...equippedItemsByCategory,
-      [item.category]: item,
-    };
+  function selectCharacter(characterId) {
+    setSelectedCharacterId(characterId);
+    evaluateSelection(characterId, selectedTopOutfitId, selectedBottomOutfitId);
+  }
 
-    setEquippedItemsByCategory(nextEquippedItemsByCategory);
-    checkAchievement(nextEquippedItemsByCategory);
+  function selectTopOutfit(outfitId) {
+    setSelectedTopOutfitId(outfitId);
+    evaluateSelection(selectedCharacterId, outfitId, selectedBottomOutfitId);
+  }
+
+  function selectBottomOutfit(outfitId) {
+    setSelectedBottomOutfitId(outfitId);
+    evaluateSelection(selectedCharacterId, selectedTopOutfitId, outfitId);
   }
 
   function resetDressUp() {
-    setEquippedItemsByCategory({});
+    setSelectedTopOutfitId(null);
+    setSelectedBottomOutfitId(null);
+    setMessage("");
+    setResult(null);
     setUnlockedAchievement(null);
     setIsAchievementOpen(false);
   }
 
-  function selectCharacter(character) {
-    setSelectedCharacter(character);
-    resetDressUp();
-  }
-
   return {
-    achievements,
     characters,
     closeAchievement: () => setIsAchievementOpen(false),
-    equippedItems,
-    equippedItemsByCategory,
-    equipItem,
     isAchievementOpen,
-    items,
+    message,
+    outfits,
     resetDressUp,
+    result,
+    selectedBottomOutfit,
+    selectedBottomOutfitId,
     selectedCharacter,
+    selectedCharacterId,
+    selectedTopOutfit,
+    selectedTopOutfitId,
+    selectBottomOutfit,
     selectCharacter,
+    selectTopOutfit,
     unlockedAchievement,
   };
 }

@@ -7,11 +7,12 @@ function CharacterOption({ character, selected, onSelect }) {
     <button
       className={`character-option${selected ? " character-option-active" : ""}`}
       type="button"
-      onClick={() => onSelect(character)}
+      onClick={() => onSelect(character.id)}
+      aria-pressed={selected}
     >
       <span className="character-thumb" aria-hidden="true">
         {missing ? (
-          <span className="character-thumb-placeholder">待补充</span>
+          <span className="character-thumb-placeholder">素材待补</span>
         ) : (
           <img
             src={character.thumbnail}
@@ -27,14 +28,14 @@ function CharacterOption({ character, selected, onSelect }) {
 
 export default function CharacterSelector({
   characters,
-  selectedCharacter,
+  selectedCharacterId,
   onSelectCharacter,
 }) {
   return (
     <section className="character-selector" aria-label="基础角色选择">
       <div>
-        <h2>选择卡通角色</h2>
-        <p>先选择一个基础形象，再进入古画服饰搭配。</p>
+        <h2>选择小猫</h2>
+        <p>先选择一只小猫，再选择同套上衣和下装进入画中。</p>
       </div>
       <div className="character-options">
         {characters.map((character) => (
@@ -42,7 +43,7 @@ export default function CharacterSelector({
             character={character}
             key={character.id}
             onSelect={onSelectCharacter}
-            selected={selectedCharacter.id === character.id}
+            selected={selectedCharacterId === character.id}
           />
         ))}
       </div>
