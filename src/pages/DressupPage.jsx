@@ -43,6 +43,13 @@ export default function DressUpPage() {
       />
 
       <section className="gf-game-layout">
+        <ItemPanel
+          outfits={outfits}
+          part="top"
+          selectedOutfitId={selectedTopOutfitId}
+          onSelectOutfit={selectTopOutfit}
+        />
+
         <div className="gf-canvas-column">
           <VideoResult
             message={message}
@@ -53,10 +60,9 @@ export default function DressUpPage() {
 
         <ItemPanel
           outfits={outfits}
-          selectedBottomOutfitId={selectedBottomOutfitId}
-          selectedTopOutfitId={selectedTopOutfitId}
-          onSelectBottomOutfit={selectBottomOutfit}
-          onSelectTopOutfit={selectTopOutfit}
+          part="bottom"
+          selectedOutfitId={selectedBottomOutfitId}
+          onSelectOutfit={selectBottomOutfit}
         />
       </section>
 

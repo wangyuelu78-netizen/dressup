@@ -27,45 +27,29 @@ function OutfitPartButton({ image, label, outfit, selected, onClick }) {
 
 export default function ItemPanel({
   outfits,
-  selectedBottomOutfitId,
-  selectedTopOutfitId,
-  onSelectBottomOutfit,
-  onSelectTopOutfit,
+  part,
+  selectedOutfitId,
+  onSelectOutfit,
 }) {
+  const isTop = part === "top";
+
   return (
-    <aside className="gf-panel" aria-label="衣物选择面板">
+    <aside className={`gf-panel outfit-side-panel outfit-side-panel-${part}`} aria-label={isTop ? "上装选择栏" : "下装选择栏"}>
       <div className="gf-panel-header">
-        <h2>选择上衣下装</h2>
-        <p>上下装来自同一套时，系统会进入画中视频。</p>
+        <h2>{isTop ? "上装" : "下装"}</h2>
+        <p>{isTop ? "选择一件上衣。" : "选择一件下装。"}</p>
       </div>
 
-      <div className="outfit-part-section">
-        <h3>上衣</h3>
-        <div className="gf-item-list custom-scrollbar" aria-label="上衣列表">
+      <div className="outfit-part-section outfit-part-section-full">
+        <div className="gf-item-list custom-scrollbar" aria-label={isTop ? "上衣列表" : "下装列表"}>
           {outfits.map((outfit) => (
             <OutfitPartButton
-              image={outfit.top}
-              key={`${outfit.id}-top`}
-              label="上衣"
+              image={isTop ? outfit.top : outfit.bottom}
+              key={`${outfit.id}-${part}`}
+              label={isTop ? "上衣" : "下装"}
               outfit={outfit}
-              selected={selectedTopOutfitId === outfit.id}
-              onClick={() => onSelectTopOutfit(outfit.id)}
-            />
-          ))}
-        </div>
-      </div>
-
-      <div className="outfit-part-section">
-        <h3>下装</h3>
-        <div className="gf-item-list custom-scrollbar" aria-label="下装列表">
-          {outfits.map((outfit) => (
-            <OutfitPartButton
-              image={outfit.bottom}
-              key={`${outfit.id}-bottom`}
-              label="下装"
-              outfit={outfit}
-              selected={selectedBottomOutfitId === outfit.id}
-              onClick={() => onSelectBottomOutfit(outfit.id)}
+              selected={selectedOutfitId === outfit.id}
+              onClick={() => onSelectOutfit(outfit.id)}
             />
           ))}
         </div>

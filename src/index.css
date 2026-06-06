@@ -447,6 +447,7 @@ button {
   place-items: center;
   padding: 24px;
   background: rgba(43, 33, 24, 0.42);
+  z-index: 1000;
 }
 
 .modal-panel {
@@ -455,6 +456,8 @@ button {
   padding: 20px;
   background: var(--paper);
   box-shadow: var(--shadow);
+  position: relative;
+  z-index: 1001;
 }
 
 .modal-header {
@@ -512,12 +515,12 @@ button {
 }
 
 .gf-game-layout {
-  width: min(1180px, calc(100% - 32px));
+  width: min(1280px, calc(100% - 32px));
   margin: 20px auto 0;
   display: grid;
-  grid-template-columns: minmax(320px, 1fr) 380px;
+  grid-template-columns: 260px minmax(420px, 1fr) 260px;
   gap: 20px;
-  align-items: start;
+  align-items: stretch;
 }
 
 .gf-canvas-column {
@@ -554,6 +557,8 @@ button {
   background: rgba(255, 255, 255, 0.72);
   color: var(--ink);
   text-align: left;
+  position: relative;
+  z-index: 1;
 }
 
 .gf-item-card-active {
@@ -600,7 +605,7 @@ button {
 }
 
 .video-result {
-  min-height: 560px;
+  height: 640px;
   display: grid;
   align-content: center;
   gap: 16px;
@@ -689,6 +694,27 @@ button {
   font-size: 16px;
 }
 
+.outfit-side-panel {
+  height: 640px;
+  min-height: 640px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  z-index: 1;
+}
+
+.outfit-side-panel .gf-panel-header {
+  padding: 14px;
+}
+
+.outfit-side-panel .gf-item-list {
+  padding: 0;
+}
+
+.outfit-part-section-full {
+  min-height: 0;
+  overflow: hidden;
+}
+
 @media (max-width: 900px) {
   .app-shell {
     grid-template-columns: 1fr;
@@ -721,6 +747,12 @@ button {
 
   .gf-game-header {
     display: grid;
+  }
+
+  .video-result,
+  .outfit-side-panel {
+    height: auto;
+    min-height: 0;
   }
 
   .character-options {
@@ -964,6 +996,7 @@ button {
   overflow: hidden;
   display: grid;
   grid-template-rows: auto 1fr auto;
+  z-index: 1;
 }
 
 .gf-panel-vertical {
@@ -1036,6 +1069,8 @@ button {
   justify-content: center;
   gap: 14px 12px;
   overflow-y: auto;
+  position: relative;
+  z-index: 1;
 }
 
 .gf-item-bubble {
