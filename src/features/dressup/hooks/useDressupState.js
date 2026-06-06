@@ -113,18 +113,31 @@ export default function useDressUpState({
       return;
     }
 
-    const nextResult = buildResult(nextCharacterId, nextTopOutfitId);
     setMessage("");
-    setResult(nextResult);
   }
 
   function confirmVideoDressUp() {
-    if (!result) {
+    if (
+      !selectedCharacterId ||
+      !selectedTopOutfitId ||
+      !selectedBottomOutfitId
+    ) {
+      setMessage("");
       return;
     }
 
-    if (result.achievement) {
-      unlockAchievement(result.achievement);
+    if (selectedTopOutfitId !== selectedBottomOutfitId) {
+      setMessage(mismatchMessage);
+      setResult(null);
+      return;
+    }
+
+    const nextResult = buildResult(selectedCharacterId, selectedTopOutfitId);
+    setMessage("");
+    setResult(nextResult);
+
+    if (nextResult?.achievement) {
+      unlockAchievement(nextResult.achievement);
       return;
     }
 

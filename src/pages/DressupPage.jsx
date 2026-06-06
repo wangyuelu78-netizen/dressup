@@ -34,7 +34,12 @@ export default function DressupPage({
   const hasCompleteSelection = Boolean(
     selectedCharacterId && selectedTopOutfitId && selectedBottomOutfitId,
   );
-  const canConfirmDressup = Boolean(result);
+  const canConfirmDressup = Boolean(
+    selectedCharacterId &&
+      selectedTopOutfitId &&
+      selectedBottomOutfitId &&
+      selectedTopOutfitId === selectedBottomOutfitId,
+  );
 
   return (
     <section className="gf-dressup mini-page" aria-label="一键入画古画换装游戏">
@@ -82,8 +87,12 @@ export default function DressupPage({
 
           <div className="wardrobe-actions wardrobe-actions-center">
             <p aria-live="polite">
-              {canConfirmDressup
-                ? "搭配完成，可以确认入画。"
+              {message
+                ? message
+                : canConfirmDressup
+                  ? result
+                    ? "视频已生成，可以继续调整或查看成就。"
+                    : "搭配完成，点击确认入画。"
                 : hasCompleteSelection
                   ? "上下装需要来自同一套。"
                   : "选好角色、上装和下装后即可确认。"}

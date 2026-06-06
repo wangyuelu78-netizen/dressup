@@ -1,7 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function VideoResult({ message, result, selectedCharacter }) {
   const [videoMissing, setVideoMissing] = useState(false);
+
+  useEffect(() => {
+    setVideoMissing(false);
+  }, [result?.videoSrc]);
 
   if (message) {
     return (
@@ -53,7 +57,7 @@ export default function VideoResult({ message, result, selectedCharacter }) {
         />
       )}
       <div className="video-result-meta">
-        <h2>{result.outfit.name}</h2>
+        <h2>{result.outfit.resultText ?? result.outfit.name}</h2>
         <p>{result.outfit.sourcePainting} · {result.outfit.sourceRole}</p>
       </div>
     </section>

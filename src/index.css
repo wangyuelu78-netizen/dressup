@@ -1670,3 +1670,45 @@ button:focus-visible {
     grid-template-columns: 104px minmax(0, 1fr);
   }
 }
+
+.video-result {
+  min-height: 0;
+  align-content: start;
+}
+
+.video-result:not(.video-result-message):not(.video-result-placeholder) {
+  width: min(100%, 560px);
+  justify-self: center;
+  padding: 10px;
+}
+
+.video-result video {
+  width: 100%;
+  height: auto;
+  aspect-ratio: auto;
+  max-height: min(64vh, 620px);
+  object-fit: contain;
+}
+
+.video-result-message,
+.video-result-placeholder {
+  min-height: 360px;
+  align-content: center;
+}
+
+.video-result-placeholder img {
+  aspect-ratio: 1;
+}
+
+@media (min-width: 700px) {
+  .video-result-message,
+  .video-result-placeholder {
+    min-height: 420px;
+  }
+}
+
+@media (min-width: 980px) {
+  .video-result:not(.video-result-message):not(.video-result-placeholder) {
+    min-height: 0;
+  }
+}
