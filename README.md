@@ -1,73 +1,75 @@
-# React + TypeScript + Vite
+# 一键入画
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+古画服饰换装互动 Demo。当前仓库重点维护交互功能：选择角色、选择服饰、确认搭配、匹配成就、提示接近成就、保存已解锁成就。
 
-Currently, two official plugins are available:
+## 开发命令
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
+npm run lint
+npm run build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 队友查看当前分支
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+当前交互逻辑在这个分支：
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```text
+feat/achievement-screen-design
+```
+
+如果已经 clone 过仓库：
+
+```bash
+git fetch origin
+git checkout feat/achievement-screen-design
+```
+
+如果还没有 clone：
+
+```bash
+git clone https://github.com/wangyuelu78-netizen/dressup.git
+cd dressup
+git checkout feat/achievement-screen-design
+```
+
+## 功能边界
+
+当前阶段不负责最终小猫/小人和服饰图片制作。缺少图片时，页面会显示占位，但不影响：
+
+- 角色选择
+- 服饰选择
+- 确认搭配
+- 完整套装解锁成就
+- 非完整套装提示接近哪个成就
+- 成就状态本地保存
+
+## 素材交接
+
+图片上传说明见 [public/assets/README.md](public/assets/README.md)。
+
+队友上传素材时，只需要把图片放到说明中的固定路径。角色和服饰建议使用透明 PNG，并按 512x512 画布对齐。
+
+## 不要覆盖的逻辑文件
+
+UI 或图片更新时不要覆盖这些文件：
+
+```text
+src/features/dressup/hooks/useDressupState.js
+src/features/achievements/utils/findClosestAchievement.js
+src/features/achievements/utils/findUnlockedAchievement.js
+src/data/items.ts
+src/data/sets.ts
+src/data/achievements.ts
+src/app/App.jsx
+```
+
+如果需要改 UI，优先改：
+
+```text
+src/index.css
+src/pages/*.jsx
+src/features/**/components/*.jsx
+public/assets/
 ```
