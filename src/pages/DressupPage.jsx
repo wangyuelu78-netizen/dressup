@@ -56,14 +56,21 @@ export default function DressupPage({
         </div>
       </header>
 
-      <main className="gf-game-layout">
-        <section className="gf-stage-zone" aria-label="角色与画中结果">
-          <CharacterSelector
-            characters={characters}
-            selectedCharacterId={selectedCharacterId}
-            onSelectCharacter={selectCharacter}
-          />
+      <CharacterSelector
+        characters={characters}
+        selectedCharacterId={selectedCharacterId}
+        onSelectCharacter={selectCharacter}
+      />
 
+      <main className="gf-game-layout">
+        <ItemPanel
+          outfits={outfits}
+          part="top"
+          selectedOutfitId={selectedTopOutfitId}
+          onSelectOutfit={selectTopOutfit}
+        />
+
+        <section className="gf-stage-zone" aria-label="画中结果区域">
           <section className="gf-canvas-column" aria-label="画中结果区域">
             <VideoResult
               message={message}
@@ -72,34 +79,8 @@ export default function DressupPage({
             />
             {currentSource && <SourceCard source={currentSource} />}
           </section>
-        </section>
 
-        <section className="wardrobe-tray" aria-label="底部衣橱">
-          <div className="wardrobe-tray-header">
-            <span className="material-symbols-outlined" aria-hidden="true">checkroom</span>
-            <div>
-              <h2>衣橱</h2>
-              <p>选择同一套上装和下装，即可进入画中。</p>
-            </div>
-          </div>
-
-          <div className="wardrobe-rails">
-            <ItemPanel
-              outfits={outfits}
-              part="top"
-              selectedOutfitId={selectedTopOutfitId}
-              onSelectOutfit={selectTopOutfit}
-            />
-
-            <ItemPanel
-              outfits={outfits}
-              part="bottom"
-              selectedOutfitId={selectedBottomOutfitId}
-              onSelectOutfit={selectBottomOutfit}
-            />
-          </div>
-
-          <div className="wardrobe-actions">
+          <div className="wardrobe-actions wardrobe-actions-center">
             <p aria-live="polite">
               {canConfirmDressup
                 ? "搭配完成，可以确认入画。"
@@ -118,6 +99,13 @@ export default function DressupPage({
             </button>
           </div>
         </section>
+
+        <ItemPanel
+          outfits={outfits}
+          part="bottom"
+          selectedOutfitId={selectedBottomOutfitId}
+          onSelectOutfit={selectBottomOutfit}
+        />
       </main>
 
       <AchievementModal
