@@ -1,31 +1,32 @@
-import SceneUnlockModal from "../features/sceneUnlock/components/SceneUnlockModal.jsx";
-import { scenePresets } from "../features/sceneUnlock/data/scenePresets.js";
 import Button from "../shared/components/Button.jsx";
+import { achievements } from "../data/achievements.ts";
 
 export default function ResultPage({ onNavigate }) {
-  const firstScene = scenePresets[0];
-
   return (
     <section className="page">
       <header className="page-header">
         <div>
-          <p className="page-kicker">RESULT</p>
-          <h1 className="page-title">搭配结果</h1>
+          <p className="page-kicker">ACHIEVEMENTS</p>
+          <h1 className="page-title">成就档案</h1>
           <p className="page-copy">
-            结果页先保留基础位置，后续可以接入截图保存、文物说明汇总、场景解锁和分享流程。
+            这里先展示 MVP 中可解锁的三套古画服饰成就，后续可以接入用户已解锁记录和保存搭配结果。
           </p>
         </div>
         <div className="result-actions">
           <Button onClick={() => onNavigate("dressup")}>继续搭配</Button>
-          <Button variant="primary">保存结果</Button>
+          <Button variant="primary">查看来源</Button>
         </div>
       </header>
 
-      <div className="result-panel">
-        <h3>{firstScene.name}</h3>
-        <p>{firstScene.description}</p>
+      <div className="achievement-grid">
+        {achievements.map((achievement) => (
+          <article className="result-panel" key={achievement.id}>
+            <h3>{achievement.title}</h3>
+            <p>{achievement.sourcePainting} · {achievement.sourceRole}</p>
+            <p>{achievement.description}</p>
+          </article>
+        ))}
       </div>
-      <SceneUnlockModal open={false} scene={firstScene} onClose={() => {}} />
     </section>
   );
 }

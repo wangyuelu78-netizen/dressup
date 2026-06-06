@@ -9,7 +9,7 @@ export default function CategoryTabs({ activeCategory, categories, onChange }) {
           variant={activeCategory === category.id ? "active" : "ghost"}
           onClick={() => onChange(category.id)}
         >
-          {category.label}
+          {category.name}
         </Button>
       ))}
     </div>

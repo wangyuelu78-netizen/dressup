@@ -1,56 +1,76 @@
-import DressupCanvas from "../features/dressup/components/DressupCanvas.jsx";
+import AchievementModal from "../features/achievements/components/AchievementModal.jsx";
+import SourceCard from "../features/achievements/components/SourceCard.jsx";
+import CharacterSelector from "../features/dressup/components/CharacterSelector.jsx";
+import DressCanvas from "../features/dressup/components/DressCanvas.jsx";
 import ItemPanel from "../features/dressup/components/ItemPanel.jsx";
-import RelicCard from "../features/relicInfo/components/RelicCard.jsx";
-import { relicInfoList } from "../features/relicInfo/data/relicInfo.js";
-import { dressupItems } from "../features/dressup/data/dressupItems.js";
-import useDressupState from "../features/dressup/hooks/useDressupState.js";
+import useDressUpState from "../features/dressup/hooks/useDressUpState.js";
 import Button from "../shared/components/Button.jsx";
 
-export default function DressupPage({ onNavigate }) {
-  const dressup = useDressupState(dressupItems);
-  const activeRelicInfo = relicInfoList.find(
-    (relic) => relic.itemId === dressup.lastSelectedItem?.id,
-  );
+export default function DressUpPage() {
+  const {
+    activeAchievement,
+    activeCategory,
+    categories,
+    characters,
+    closeAchievement,
+    currentSource,
+    equipped,
+    equippedItems,
+    equipItem,
+    resetDressUp,
+    setActiveCategory,
+    selectedCharacter,
+    selectCharacter,
+    visibleItems,
+  } = useDressUpState();
 
   return (
     <section className="page">
       <header className="page-header">
         <div>
-          <p className="page-kicker">DRESSUP</p>
-          <h1 className="page-title">文物换装</h1>
-          <p className="page-copy">
-            从右侧选择发型、发饰、耳饰、颈饰和衣物，素材会按类别叠加到中间的人物底图上。
-          </p>
+          <p className="page-kicker">DRESS UP</p>
+          <h1 className="page-title">画中衣橱</h1>
+          <p className="page-copy">把古画中的人物服饰穿到卡通角色身上</p>
         </div>
-        <Button variant="primary" onClick={() => onNavigate("result")}>
-          查看结果
-        </Button>
+        <Button onClick={resetDressUp}>清空搭配</Button>
       </header>
+
+      <CharacterSelector
+        characters={characters}
+        selectedCharacter={selectedCharacter}
+        onSelectCharacter={selectCharacter}
+      />
 
       <div className="dressup-layout">
         <div className="dressup-workspace">
-          <DressupCanvas selectedItems={dressup.selectedItems} />
-          {dressup.selectedItems.length > 0 && (
-            <div className="selected-strip" aria-label="已选择素材">
-              {dressup.selectedItems.map((item) => (
+          <DressCanvas equippedItems={equippedItems} selectedCharacter={selectedCharacter} />
+          {equippedItems.length > 0 && (
+            <div className="selected-strip" aria-label="当前已装备物品">
+              {equippedItems.map((item) => (
                 <span className="selected-pill" key={item.id}>
-                  {item.categoryLabel}：{item.name}
+                  {item.name}
                 </span>
               ))}
             </div>
           )}
-          {activeRelicInfo && <RelicCard relic={activeRelicInfo} />}
+          {currentSource && <SourceCard source={currentSource} />}
         </div>
 
         <ItemPanel
-          activeCategory={dressup.activeCategory}
-          categories={dressup.categories}
-          items={dressup.visibleItems}
-          selectedByCategory={dressup.selectedByCategory}
-          onCategoryChange={dressup.setActiveCategory}
-          onSelectItem={dressup.selectItem}
+          activeCategory={activeCategory}
+          categories={categories}
+          equipped={equipped}
+          items={visibleItems}
+          onCategoryChange={setActiveCategory}
+          onEquipItem={equipItem}
         />
       </div>
+
+      <AchievementModal
+        achievement={activeAchievement}
+        open={Boolean(activeAchievement)}
+        onClose={closeAchievement}
+      />
     </section>
   );
 }
