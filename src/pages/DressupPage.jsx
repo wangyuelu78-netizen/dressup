@@ -5,12 +5,18 @@ import { relicInfoList } from "../features/relicInfo/data/relicInfo.js";
 import { dressupItems } from "../features/dressup/data/dressupItems.js";
 import useDressupState from "../features/dressup/hooks/useDressupState.js";
 import Button from "../shared/components/Button.jsx";
+import { saveToStorage } from "../shared/utils/storageUtils.js";
 
 export default function DressupPage({ onNavigate }) {
   const dressup = useDressupState(dressupItems);
   const activeRelicInfo = relicInfoList.find(
     (relic) => relic.itemId === dressup.lastSelectedItem?.id,
   );
+
+  function viewResult() {
+    saveToStorage("dressup_selected_items", dressup.selectedItems);
+    onNavigate("result");
+  }
 
   return (
     <section className="page">
@@ -22,7 +28,7 @@ export default function DressupPage({ onNavigate }) {
             从右侧选择发型、发饰、耳饰、颈饰和衣物，素材会按类别叠加到中间的人物底图上。
           </p>
         </div>
-        <Button variant="primary" onClick={() => onNavigate("result")}>
+        <Button variant="primary" onClick={viewResult}>
           查看结果
         </Button>
       </header>

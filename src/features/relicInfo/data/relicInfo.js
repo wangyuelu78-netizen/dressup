@@ -2,26 +2,31 @@ export const relicInfoList = [
   {
     itemId: "tang-cloud-hair",
     name: "唐风云髻",
-    description: "mock 信息：以唐代仕女高髻为灵感，后续可替换为真实馆藏来源、年代和说明。",
+    dynasty: "唐",
+    description: "以唐代仕女高髻为灵感，强调蓬松高耸的发式轮廓，适合营造盛唐华彩感。",
   },
   {
     itemId: "gold-flower-hairpin",
     name: "鎏金花簪",
-    description: "mock 信息：用于展示发饰文物卡片，后续可加入材质、纹样和博物馆链接。",
+    dynasty: "唐",
+    description: "花形金饰常用于突出发髻层次，金色材质能强化宴游、礼仪和富丽气质。",
   },
   {
     itemId: "jade-drop-earrings",
     name: "玉坠耳饰",
-    description: "mock 信息：用于耳饰类别说明，后续可扩展成详细文物知识面板。",
+    dynasty: "宋",
+    description: "玉坠耳饰以温润材质和垂坠线条为重点，适合表达宋式清雅、含蓄的审美。",
   },
   {
     itemId: "cloud-necklace",
     name: "云纹项饰",
-    description: "mock 信息：用于颈饰说明，后续可关联朝代、纹样寓意和解锁规则。",
+    dynasty: "明",
+    description: "云纹寓意祥瑞，也能在颈部形成稳定的视觉中心，增强端雅和礼制感。",
   },
   {
     itemId: "ming-red-robe",
     name: "绛色对襟衣",
-    description: "mock 信息：用于衣物说明，后续可接入真实服饰结构和图层定位数据。",
+    dynasty: "明",
+    description: "绛色衣物色彩沉稳，配合对襟轮廓，适合呈现明制服饰的庄重仪态。",
   },
 ];
