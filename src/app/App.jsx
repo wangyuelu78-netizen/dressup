@@ -1,12 +1,12 @@
 import { useState } from "react";
 import HomePage from "../pages/HomePage.jsx";
-import DressUpPage from "../pages/DressUpPage.jsx";
+import DressupPage from "../pages/DressupPage.jsx";
 import ResultPage from "../pages/ResultPage.jsx";
 import Button from "../shared/components/Button.jsx";
 
 const pages = {
   home: { label: "首页", component: HomePage },
-  dressup: { label: "画中衣橱", component: DressUpPage },
+  dressup: { label: "画中衣橱", component: DressupPage },
   result: { label: "成就档案", component: ResultPage },
 };
 

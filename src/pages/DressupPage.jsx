@@ -1,11 +1,12 @@
 import AchievementModal from "../features/achievements/components/AchievementModal.jsx";
 import SourceCard from "../features/achievements/components/SourceCard.jsx";
+import { achievements } from "../data/achievements.ts";
 import CharacterSelector from "../features/dressup/components/CharacterSelector.jsx";
 import DressCanvas from "../features/dressup/components/DressCanvas.jsx";
 import ItemPanel from "../features/dressup/components/ItemPanel.jsx";
 import useDressUpState from "../features/dressup/hooks/useDressupState.js";
 
-export default function DressUpPage({ onNavigate }) {
+export default function DressupPage({ onNavigate }) {
   const {
     activeAchievement,
     activeCategory,
@@ -16,6 +17,7 @@ export default function DressUpPage({ onNavigate }) {
     equipped,
     equippedItems,
     equipItem,
+    openAchievementForTest,
     resetDressUp,
     setActiveCategory,
     selectedCharacter,
@@ -84,9 +86,6 @@ export default function DressUpPage({ onNavigate }) {
           onCategoryChange={setActiveCategory}
           onEquipItem={equipItem}
           onReset={resetDressUp}
-          onViewSource={() => {
-            console.log("查看来源", currentSource);
-          }}
         />
       </main>
 
@@ -121,10 +120,44 @@ export default function DressUpPage({ onNavigate }) {
         </button>
       </nav>
 
+      <section className="achievement-test-entry" aria-label="成就弹窗测试入口">
+        <span>测试成就弹窗</span>
+        <button
+          type="button"
+          onClick={() => openAchievementForTest(achievements[0])}
+        >
+          测试：我在宋朝送外卖
+        </button>
+        <button
+          type="button"
+          onClick={() => openAchievementForTest(achievements[1])}
+        >
+          测试：今天也是大唐美人
+        </button>
+        <button
+          type="button"
+          onClick={() => openAchievementForTest(achievements[2])}
+        >
+          测试：夜场蹦迪
+        </button>
+        <button
+          type="button"
+          onClick={() => openAchievementForTest(achievements[3])}
+        >
+          测试：给懿德太子牵马
+        </button>
+      </section>
+
       <AchievementModal
         achievement={activeAchievement}
         open={Boolean(activeAchievement)}
         onClose={closeAchievement}
+        onViewAchievements={() => {
+          closeAchievement();
+          if (onNavigate) {
+            onNavigate("result");
+          }
+        }}
       />
     </section>
   );

@@ -53,6 +53,10 @@ export default function useDressUpState() {
     setActiveAchievement(null);
   }
 
+  function openAchievementForTest(achievement) {
+    setActiveAchievement(achievement);
+  }
+
   function selectCharacter(character) {
     setSelectedCharacter(character);
     resetDressUp();
@@ -68,6 +72,7 @@ export default function useDressUpState() {
     equipped,
     equippedItems,
     equipItem,
+    openAchievementForTest,
     resetDressUp,
     setActiveCategory,
     selectedCharacter,

@@ -5,7 +5,7 @@ export default function HomePage({ onNavigate }) {
     <section className="page">
       <header className="page-header">
         <div>
-          <p className="page-kicker">PROJECT STARTER</p>
+          <p className="page-kicker">ART DRESSUP</p>
           <h1 className="page-title">一键入画</h1>
           <p className="page-copy">
             选择主办方提供的卡通角色，再把中国古画中提取、重绘的服饰部件穿到角色身上。
@@ -13,7 +13,7 @@ export default function HomePage({ onNavigate }) {
           </p>
         </div>
         <Button variant="primary" onClick={() => onNavigate("dressup")}>
-          打开衣橱
+          开始入画
         </Button>
       </header>
 

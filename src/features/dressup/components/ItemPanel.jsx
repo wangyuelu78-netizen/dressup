@@ -6,7 +6,6 @@ export default function ItemPanel({
   onCategoryChange,
   onEquipItem,
   onReset,
-  onViewSource,
 }) {
   const isSelected = (item) => Object.values(equipped).some((equippedItem) => equippedItem.id === item.id);
 
@@ -82,13 +81,6 @@ export default function ItemPanel({
           onClick={() => (onReset ? onReset() : null)}
         >
           清空搭配
-        </button>
-        <button
-          className="gf-action-button gf-action-button-primary"
-          type="button"
-          onClick={() => (onViewSource ? onViewSource() : null)}
-        >
-          查看来源
         </button>
       </div>
     </aside>
