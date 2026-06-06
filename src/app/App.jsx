@@ -14,6 +14,10 @@ export default function App() {
   const [currentPage, setCurrentPage] = useState("home");
   const CurrentPage = pages[currentPage].component;
 
+  if (currentPage === "dressup") {
+    return <CurrentPage onNavigate={setCurrentPage} />;
+  }
+
   return (
     <main className="app-shell">
       <aside className="app-sidebar">
