@@ -116,10 +116,24 @@ export default function useDressUpState({
     const nextResult = buildResult(nextCharacterId, nextTopOutfitId);
     setMessage("");
     setResult(nextResult);
+  }
 
-    if (nextResult?.achievement) {
-      unlockAchievement(nextResult.achievement);
+  function confirmVideoDressUp() {
+    if (!result) {
+      return;
     }
+
+    if (result.achievement) {
+      unlockAchievement(result.achievement);
+      return;
+    }
+
+    setActiveAchievementFeedback({
+      achievement: null,
+      matchedItemCount: 0,
+      missingItemCount: 0,
+      status: "none",
+    });
   }
 
   function equipItem(item) {
@@ -223,6 +237,7 @@ export default function useDressUpState({
     closeAchievement: () => setActiveAchievementFeedback(null),
     closeAchievementFeedback: () => setActiveAchievementFeedback(null),
     confirmDressUp,
+    confirmVideoDressUp,
     currentSource,
     equipped,
     equippedItems,

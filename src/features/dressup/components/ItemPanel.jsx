@@ -36,7 +36,7 @@ function OutfitPartButton({ image, label, outfit, selected, onClick }) {
 
   return (
     <button
-      className={`gf-item-card${selected ? " gf-item-card-active" : ""}`}
+      className={`gf-item-card wardrobe-card${selected ? " gf-item-card-active wardrobe-card-active" : ""}`}
       type="button"
       onClick={onClick}
       aria-pressed={selected}
@@ -49,10 +49,16 @@ function OutfitPartButton({ image, label, outfit, selected, onClick }) {
         )}
       </span>
       <span className="gf-item-info">
-        <strong>{label}</strong>
-        <small>{outfit.name}</small>
+        <strong>{outfit.name}</strong>
+        <small className="wardrobe-part-label">{label}</small>
+        <small>{outfit.sourceRole}</small>
         <small>{outfit.sourcePainting}</small>
       </span>
+      {selected && (
+        <span className="wardrobe-check" aria-hidden="true">
+          <span className="material-symbols-outlined">check</span>
+        </span>
+      )}
     </button>
   );
 }
@@ -60,18 +66,36 @@ function OutfitPartButton({ image, label, outfit, selected, onClick }) {
 function OutfitPanel({ outfits, part, selectedOutfitId, onSelectOutfit }) {
   const isTop = part === "top";
 
+  function scrollWardrobeRow(event) {
+    const row = event.currentTarget;
+    const canScroll = row.scrollWidth > row.clientWidth;
+
+    if (!canScroll || Math.abs(event.deltaX) > Math.abs(event.deltaY)) {
+      return;
+    }
+
+    row.scrollLeft += event.deltaY;
+  }
+
   return (
     <aside
-      className={`gf-panel outfit-side-panel outfit-side-panel-${part}`}
+      className={`gf-panel outfit-side-panel outfit-side-panel-${part} wardrobe-panel wardrobe-panel-${part}`}
       aria-label={isTop ? "上装选择栏" : "下装选择栏"}
     >
       <div className="gf-panel-header">
+        <span className="wardrobe-tab-icon material-symbols-outlined" aria-hidden="true">
+          {isTop ? "styler" : "apparel"}
+        </span>
         <h2>{isTop ? "上装" : "下装"}</h2>
         <p>{isTop ? "选择一件上衣。" : "选择一件下装。"}</p>
       </div>
 
       <div className="outfit-part-section outfit-part-section-full">
-        <div className="gf-item-list custom-scrollbar" aria-label={isTop ? "上衣列表" : "下装列表"}>
+        <div
+          className="gf-item-list wardrobe-row custom-scrollbar"
+          aria-label={isTop ? "上衣列表" : "下装列表"}
+          onWheel={scrollWardrobeRow}
+        >
           {outfits.map((outfit) => (
             <OutfitPartButton
               image={isTop ? outfit.top : outfit.bottom}
