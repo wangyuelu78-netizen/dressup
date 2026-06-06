@@ -5,29 +5,29 @@ export default function HomePage({ onNavigate }) {
     <section className="page">
       <header className="page-header">
         <div>
-          <p className="page-kicker">PROJECT STARTER</p>
-          <h1 className="page-title">文物换装互动项目</h1>
+          <p className="page-kicker">ART DRESSUP</p>
+          <h1 className="page-title">一键入画</h1>
           <p className="page-copy">
-            先从清晰骨架开始：素材、画布、文物信息、场景解锁各自归位，后续再逐步接入拖拽、保存和更多玩法。
+            把古画里的服饰穿到卡通角色身上，集齐套装，解锁来自画中的人物成就。
           </p>
         </div>
         <Button variant="primary" onClick={() => onNavigate("dressup")}>
-          开始换装
+          开始入画
         </Button>
       </header>
 
       <div className="home-grid">
         <article className="info-card">
-          <h3>低耦合</h3>
-          <p>页面只负责组合，换装状态和素材数据都在 feature 内部维护。</p>
+          <h3>点击换装</h3>
+          <p>选择服饰部件，角色会自动穿上对应的古画灵感装扮。</p>
         </article>
         <article className="info-card">
-          <h3>可扩展</h3>
-          <p>文物卡片、场景解锁、保存结果可以独立增长。</p>
+          <h3>套装成就</h3>
+          <p>集齐同一古画人物的服饰后，系统会弹出专属成就。</p>
         </article>
         <article className="info-card">
-          <h3>先可运行</h3>
-          <p>当前使用 mock 素材，点击素材即可叠加到人物底图。</p>
+          <h3>轻知识卡</h3>
+          <p>解锁后了解来源古画、画中人物和背后的生活细节。</p>
         </article>
       </div>
     </section>

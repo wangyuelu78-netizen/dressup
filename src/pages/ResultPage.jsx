@@ -1,41 +1,66 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { toPng } from "html-to-image";
 import DressupCanvas from "../features/dressup/components/DressupCanvas.jsx";
+import { dressupItems } from "../features/dressup/data/dressupItems.js";
 import SceneUnlockModal from "../features/sceneUnlock/components/SceneUnlockModal.jsx";
-import { scenePresets } from "../features/sceneUnlock/data/scenePresets.js";
+import {
+  achievements,
+  dressupSets,
+  freeAchievement,
+} from "../features/sceneUnlock/data/scenePresets.js";
 import {
   findClosestUnlockHint,
-  findUnlockedScene,
+  findUnlockedAchievement,
 } from "../features/sceneUnlock/utils/unlockRules.js";
 import RelicCard from "../features/relicInfo/components/RelicCard.jsx";
 import { relicInfoList } from "../features/relicInfo/data/relicInfo.js";
 import Button from "../shared/components/Button.jsx";
 import Modal from "../shared/components/Modal.jsx";
-import { loadFromStorage } from "../shared/utils/storageUtils.js";
+import { loadFromStorage, saveToStorage } from "../shared/utils/storageUtils.js";
+
+const recommendedItemIds = [
+  "qingming_delivery_vest",
+  "qingming_delivery_shorts",
+  "qingming_delivery_foodbox",
+];
 
 export default function ResultPage({ onNavigate }) {
   const [activeRelic, setActiveRelic] = useState(null);
   const [showSceneModal, setShowSceneModal] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [copyStatus, setCopyStatus] = useState("复制分享文案");
-  const posterRef = useRef(null);
-  const selectedItems = useMemo(
-    () => loadFromStorage("dressup_selected_items", []),
-    [],
+  const [selectedItems, setSelectedItems] = useState(() =>
+    loadFromStorage("dressup_selected_items", []),
   );
-  const unlockedScene = findUnlockedScene(selectedItems, scenePresets);
+  const posterRef = useRef(null);
+  const unlockedAchievement = findUnlockedAchievement(
+    selectedItems,
+    dressupSets,
+    achievements,
+    freeAchievement,
+  );
   const closestHint = useMemo(
     () =>
-      unlockedScene.id === "free-style"
-        ? findClosestUnlockHint(selectedItems, scenePresets)
+      unlockedAchievement.id === freeAchievement.id
+        ? findClosestUnlockHint(selectedItems, dressupSets, dressupItems)
         : null,
-    [selectedItems, unlockedScene.id],
+    [selectedItems, unlockedAchievement.id],
   );
   const shareText = useMemo(
     () =>
-      `我在「一键入画」解锁了${unlockedScene.name}：${unlockedScene.title}。${unlockedScene.shareCopy}`,
-    [unlockedScene],
+      `我在「一键入画」解锁了${unlockedAchievement.name}：${unlockedAchievement.title}。${unlockedAchievement.shareCopy}`,
+    [unlockedAchievement],
   );
+
+  useEffect(() => {
+    if (selectedItems.length > 0 && unlockedAchievement.id !== freeAchievement.id) {
+      const timer = window.setTimeout(() => setShowSceneModal(true), 360);
+
+      return () => window.clearTimeout(timer);
+    }
+
+    return undefined;
+  }, [selectedItems.length, unlockedAchievement.id]);
 
   function getRelicInfo(item) {
     return (
@@ -60,7 +85,7 @@ export default function ResultPage({ onNavigate }) {
         pixelRatio: 2,
       });
       const link = document.createElement("a");
-      link.download = `${unlockedScene.title}-一键入画.png`;
+      link.download = `${unlockedAchievement.title}-一键入画.png`;
       link.href = imageData;
       link.click();
     } finally {
@@ -92,6 +117,16 @@ export default function ResultPage({ onNavigate }) {
     }
   }
 
+  function applyRecommendedLook() {
+    const recommendedItems = dressupItems.filter((item) =>
+      recommendedItemIds.includes(item.id),
+    );
+
+    saveToStorage("dressup_selected_items", recommendedItems);
+    setSelectedItems(recommendedItems);
+    setShowSceneModal(true);
+  }
+
   return (
     <section className="page">
       <header className="page-header">
@@ -99,7 +134,7 @@ export default function ResultPage({ onNavigate }) {
           <p className="page-kicker">RESULT</p>
           <h1 className="page-title">搭配结果</h1>
           <p className="page-copy">
-            根据当前搭配自动判断解锁场景，生成称号、背景和文物说明清单。
+            根据当前搭配判断古画套装成就，生成可保存的画中衣橱海报。
           </p>
         </div>
         <div className="result-actions">
@@ -116,20 +151,22 @@ export default function ResultPage({ onNavigate }) {
         <section
           className="result-poster"
           ref={posterRef}
-          style={{ background: unlockedScene.backgroundStyle }}
-          aria-label={unlockedScene.backgroundName}
+          style={{ background: unlockedAchievement.backgroundStyle }}
+          aria-label={unlockedAchievement.backgroundName}
         >
           <div className="poster-frame">
             <div className="poster-copy">
-              <span className="result-scene-label">{unlockedScene.backgroundName}</span>
-              <h2>{unlockedScene.title}</h2>
-              <p>{unlockedScene.description}</p>
+              <span className="result-scene-label">
+                {unlockedAchievement.backgroundName}
+              </span>
+              <h2>{unlockedAchievement.title}</h2>
+              <p>{unlockedAchievement.description}</p>
             </div>
             <div className="poster-canvas-wrap">
               <DressupCanvas selectedItems={selectedItems} />
             </div>
             <div className="poster-footer">
-              <span>{unlockedScene.name}</span>
+              <span>{unlockedAchievement.name}</span>
               <strong>一键入画</strong>
             </div>
           </div>
@@ -138,16 +175,17 @@ export default function ResultPage({ onNavigate }) {
         <div className="result-grid">
           <article className="result-panel">
             <p className="result-panel-kicker">UNLOCKED</p>
-            <h3>{unlockedScene.name}</h3>
-            <p>{unlockedScene.shareCopy}</p>
+            <h3>{unlockedAchievement.name}</h3>
+            <p>{unlockedAchievement.shareCopy}</p>
             {closestHint && (
               <div className="unlock-hint">
                 <strong>{closestHint.title}</strong>
                 <span>{closestHint.description}</span>
+                <Button onClick={applyRecommendedLook}>套用推荐搭配</Button>
               </div>
             )}
             <Button className="result-panel-button" onClick={() => setShowSceneModal(true)}>
-              查看场景
+              查看成就
             </Button>
           </article>
 
@@ -202,8 +240,9 @@ export default function ResultPage({ onNavigate }) {
 
       <SceneUnlockModal
         open={showSceneModal}
-        scene={unlockedScene}
+        achievement={unlockedAchievement}
         onClose={() => setShowSceneModal(false)}
+        selectedItems={selectedItems}
       />
       <Modal
         open={Boolean(activeRelic)}

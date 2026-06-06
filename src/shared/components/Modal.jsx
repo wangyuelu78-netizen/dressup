@@ -5,9 +5,31 @@ export default function Modal({ children, open, title, onClose }) {
     return null;
   }
 
+  function closeOnBackdrop(event) {
+    if (event.target === event.currentTarget) {
+      onClose();
+    }
+  }
+
+  function closeOnEscape(event) {
+    if (event.key === "Escape") {
+      onClose();
+    }
+  }
+
   return (
-    <div className="modal-backdrop" role="presentation">
-      <section className="modal-panel" role="dialog" aria-modal="true" aria-label={title}>
+    <div
+      className="modal-backdrop"
+      role="presentation"
+      onClick={closeOnBackdrop}
+      onKeyDown={closeOnEscape}
+    >
+      <section
+        className="modal-panel"
+        role="dialog"
+        aria-modal="true"
+        aria-label={title}
+      >
         <header className="modal-header">
           <h2>{title}</h2>
           <Button variant="ghost" onClick={onClose}>

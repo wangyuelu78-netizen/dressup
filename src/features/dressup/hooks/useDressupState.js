@@ -27,6 +27,24 @@ export default function useDressupState(items) {
     setLastSelectedItem(item);
   }
 
+  function selectItems(itemsToSelect) {
+    setSelectedByCategory((current) => {
+      const nextSelection = { ...current };
+
+      for (const item of itemsToSelect) {
+        nextSelection[item.category] = item;
+      }
+
+      return nextSelection;
+    });
+    setLastSelectedItem(itemsToSelect.at(-1) ?? null);
+  }
+
+  function clearSelection() {
+    setSelectedByCategory({});
+    setLastSelectedItem(null);
+  }
+
   return {
     activeCategory,
     categories: dressupCategories,
@@ -35,6 +53,8 @@ export default function useDressupState(items) {
     selectedItems,
     setActiveCategory,
     selectItem,
+    selectItems,
+    clearSelection,
     visibleItems,
   };
 }
