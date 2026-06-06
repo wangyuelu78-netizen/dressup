@@ -7,6 +7,35 @@ export interface DressSet {
 
 export const sets: DressSet[] = [
   {
+    id: "night_banquet_pipa_lady",
+    name: "《韩熙载夜宴图》琵琶女",
+    requiredItemIds: [
+      "night_banquet_pipa_lady_top",
+      "night_banquet_pipa_lady_bottom",
+      "night_banquet_pipa_lady_pipa",
+    ],
+    achievementId: "night_banquet_pipa_lady",
+  },
+  {
+    id: "night_banquet_pipa_legacy_lady",
+    name: "《韩熙载夜宴图》琵琶女长裙版",
+    requiredItemIds: [
+      "night_banquet_pipa_lady_top",
+      "night_banquet_pipa_lady_skirt",
+      "night_banquet_pipa_lady_pipa",
+    ],
+    achievementId: "night_banquet_pipa_lady",
+  },
+  {
+    id: "tang_yide_horse_attendant_01",
+    name: "懿德太子牵马侍从套装",
+    requiredItemIds: [
+      "tang_yide_horse_attendant_01_top",
+      "tang_yide_horse_attendant_01_bottom",
+    ],
+    achievementId: "yide_prince_horse",
+  },
+  {
     id: "qingming_delivery_01",
     name: "《清明上河图》外卖员形象",
     requiredItemIds: [
@@ -20,22 +49,22 @@ export const sets: DressSet[] = [
     id: "tang_lady_01",
     name: "《簪花仕女图》唐代仕女",
     requiredItemIds: [
+      "tang_lady_01_top",
+      "tang_lady_01_bottom",
+      "tang_lady_01_pibo",
+    ],
+    achievementId: "tang_lady_01",
+  },
+  {
+    id: "tang_lady_legacy_01",
+    name: "《簪花仕女图》唐代仕女配饰版",
+    requiredItemIds: [
       "tang_lady_01_hair",
       "tang_lady_01_flower",
       "tang_lady_01_shawl",
       "tang_lady_01_dress",
     ],
     achievementId: "tang_lady_01",
-  },
-  {
-    id: "night_banquet_pipa_lady",
-    name: "《韩熙载夜宴图》琵琶女",
-    requiredItemIds: [
-      "night_banquet_pipa_lady_top",
-      "night_banquet_pipa_lady_skirt",
-      "night_banquet_pipa_lady_pipa",
-    ],
-    achievementId: "night_banquet_pipa_lady",
   },
   {
     id: "night_banquet_dancer_lady",

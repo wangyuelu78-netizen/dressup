@@ -1,8 +1,8 @@
 import AchievementModal from "../features/achievements/components/AchievementModal.jsx";
 import SourceCard from "../features/achievements/components/SourceCard.jsx";
 import CharacterSelector from "../features/dressup/components/CharacterSelector.jsx";
-import DressCanvas from "../features/dressup/components/DressCanvas.jsx";
 import ItemPanel from "../features/dressup/components/ItemPanel.jsx";
+import VideoResult from "../features/dressup/components/VideoResult.jsx";
 import useDressUpState from "../features/dressup/hooks/useDressupState.js";
 
 export default function DressupPage({
@@ -12,31 +12,32 @@ export default function DressupPage({
 }) {
   const {
     activeAchievementFeedback,
-    activeCategory,
-    categories,
     characters,
     closeAchievementFeedback,
-    confirmDressUp,
     currentSource,
-    equipped,
-    equippedItems,
-    equipItem,
+    message,
+    outfits,
     resetDressUp,
-    setActiveCategory,
+    result,
+    selectedBottomOutfitId,
     selectedCharacter,
+    selectedCharacterId,
+    selectedTopOutfitId,
+    selectBottomOutfit,
     selectCharacter,
-    visibleItems,
+    selectTopOutfit,
   } = useDressUpState({
     onUnlockAchievement,
     unlockedAchievementIds,
   });
 
   return (
-    <section className="gf-dressup mini-page" aria-label="古画换装">
-      <header className="gf-topbar mini-topbar">
+    <section className="gf-dressup mini-page" aria-label="一键入画古画换装游戏">
+      <header className="gf-game-header mini-topbar">
         <div>
-          <p>一键入画</p>
-          <h1>画中衣橱</h1>
+          <p className="page-kicker">一键入画</p>
+          <h1 className="page-title">画中衣橱</h1>
+          <p className="page-copy">选择小猫和成套上下装，进入预生成画中视频。</p>
         </div>
         <button className="gf-icon-button" type="button" onClick={resetDressUp}>
           <span className="material-symbols-outlined">restart_alt</span>
@@ -44,43 +45,35 @@ export default function DressupPage({
         </button>
       </header>
 
-      <main className="gf-main">
-        <section className="gf-canvas-area" aria-label="角色画布区域">
-          <div className="gf-stage-card">
-            <DressCanvas
-              equippedItems={equippedItems}
-              selectedCharacter={selectedCharacter}
-            />
-            {equippedItems.length > 0 && (
-              <div className="gf-equipped-tags" aria-label="当前已装备物品">
-                {equippedItems.map((item) => (
-                  <span className="gf-equipped-pill" key={item.id}>
-                    {item.name}
-                  </span>
-                ))}
-              </div>
-            )}
-          </div>
+      <CharacterSelector
+        characters={characters}
+        selectedCharacterId={selectedCharacterId}
+        onSelectCharacter={selectCharacter}
+      />
 
+      <main className="gf-game-layout">
+        <ItemPanel
+          outfits={outfits}
+          part="top"
+          selectedOutfitId={selectedTopOutfitId}
+          onSelectOutfit={selectTopOutfit}
+        />
+
+        <section className="gf-canvas-column" aria-label="画中结果区域">
+          <VideoResult
+            message={message}
+            result={result}
+            selectedCharacter={selectedCharacter}
+          />
           {currentSource && <SourceCard source={currentSource} />}
         </section>
 
         <ItemPanel
-          activeCategory={activeCategory}
-          categories={categories}
-          equipped={equipped}
-          items={visibleItems}
-          onCategoryChange={setActiveCategory}
-          onConfirm={confirmDressUp}
-          onEquipItem={equipItem}
-          onReset={resetDressUp}
-        >
-          <CharacterSelector
-            characters={characters}
-            selectedCharacter={selectedCharacter}
-            onSelectCharacter={selectCharacter}
-          />
-        </ItemPanel>
+          outfits={outfits}
+          part="bottom"
+          selectedOutfitId={selectedBottomOutfitId}
+          onSelectOutfit={selectBottomOutfit}
+        />
       </main>
 
       <AchievementModal

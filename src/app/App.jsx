@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import HomePage from "../pages/HomePage.jsx";
 import DressupPage from "../pages/DressupPage.jsx";
+import HomePage from "../pages/HomePage.jsx";
 import ResultPage from "../pages/ResultPage.jsx";
 import { loadFromStorage, saveToStorage } from "../shared/utils/storageUtils.js";
 

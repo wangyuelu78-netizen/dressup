@@ -9,8 +9,8 @@ export interface Achievement {
   scene?: string;
 }
 
-export const achievements: Achievement[] = [
-  {
+const achievementById: Record<string, Achievement> = {
+  qingming_delivery_01: {
     id: "qingming_delivery_01",
     title: "我在宋朝送外卖",
     subtitle: "成就解锁！",
@@ -21,7 +21,7 @@ export const achievements: Achievement[] = [
     imageSrc: "/assets/achievements/song-delivery.jpeg",
     scene: "汴京街市",
   },
-  {
+  tang_lady_01: {
     id: "tang_lady_01",
     title: "今天也是大唐美人",
     subtitle: "成就解锁！",
@@ -32,7 +32,7 @@ export const achievements: Achievement[] = [
     imageSrc: "/assets/achievements/tang-lady.jpeg",
     scene: "花间庭院",
   },
-  {
+  night_banquet_pipa_lady: {
     id: "night_banquet_pipa_lady",
     title: "夜场蹦迪",
     subtitle: "成就解锁！",
@@ -43,7 +43,7 @@ export const achievements: Achievement[] = [
     imageSrc: "/assets/achievements/night-banquet.jpeg",
     scene: "夜宴厅堂",
   },
-  {
+  yide_prince_horse: {
     id: "yide_prince_horse",
     title: "给懿德太子牵马",
     subtitle: "成就解锁！",
@@ -54,7 +54,7 @@ export const achievements: Achievement[] = [
     imageSrc: "/assets/achievements/yide-prince-horse.jpeg",
     scene: "唐代仪仗",
   },
-  {
+  night_banquet_dancer_lady: {
     id: "night_banquet_dancer_lady",
     title: "夜宴乐舞：舞步上线",
     subtitle: "成就解锁！",
@@ -64,7 +64,7 @@ export const achievements: Achievement[] = [
       "发式、上衣、裙装与披帛共同形成舞女套装，强调画面中的动态姿态、乐舞表演与宴饮氛围。",
     scene: "夜宴厅堂",
   },
-  {
+  night_banquet_clapping_lady: {
     id: "night_banquet_clapping_lady",
     title: "夜宴乐舞：掌声相和",
     subtitle: "成就解锁！",
@@ -74,4 +74,17 @@ export const achievements: Achievement[] = [
       "头饰、长袍与束带组合成鼓掌女形象，表现夜宴场景中观演互动与人物群像的细节。",
     scene: "夜宴厅堂",
   },
-];
+};
+
+export const achievements: Achievement[] = Object.values(achievementById);
+
+export const achievementMap: Record<string, Achievement> = {
+  pink_cat_pipa_lady: achievementById.night_banquet_pipa_lady,
+  black_cat_pipa_lady: achievementById.night_banquet_pipa_lady,
+  pink_cat_tang_lady: achievementById.tang_lady_01,
+  black_cat_tang_lady: achievementById.tang_lady_01,
+  pink_cat_qingming_delivery: achievementById.qingming_delivery_01,
+  black_cat_qingming_delivery: achievementById.qingming_delivery_01,
+  pink_cat_yide_attendant: achievementById.yide_prince_horse,
+  black_cat_yide_attendant: achievementById.yide_prince_horse,
+};
