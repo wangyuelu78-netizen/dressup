@@ -30,6 +30,15 @@ export const achievements: Achievement[] = [
     scene: "花间庭院",
   },
   {
+    id: "yide_horse_attendant",
+    title: "给懿德太子牵马",
+    subtitle: "解锁懿德太子墓壁画牵马侍从套装",
+    sourcePainting: "懿德太子墓壁画",
+    sourceRole: "牵马侍从",
+    description:
+      "这套服饰灵感来自唐代懿德太子墓壁画中的牵马侍从形象。项目将壁画人物的服饰和随行场景转化为卡通换装素材，让用户通过换装进入唐代贵族出行与仪仗场景。",
+  },
+  {
     id: "night_banquet_pipa_lady",
     title: "夜场蹦迪：琵琶开场",
     subtitle: "成就解锁！",
@@ -37,16 +46,6 @@ export const achievements: Achievement[] = [
     sourceRole: "琵琶女",
     description:
       "取意于夜宴开场的乐舞氛围。上衣、长裙与琵琶组合出完整乐伎形象。",
-    scene: "夜宴厅堂",
-  },
-  {
-    id: "night_banquet_dancer_lady",
-    title: "夜场蹦迪：舞步上线",
-    subtitle: "成就解锁！",
-    sourcePainting: "韩熙载夜宴图",
-    sourceRole: "跳舞女",
-    description:
-      "发式、上衣、裙装与披帛共同形成舞女套装，强调画面中的动态姿态和宴饮娱乐气氛。",
     scene: "夜宴厅堂",
   },
   {

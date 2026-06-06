@@ -28,6 +28,15 @@ export const sets: DressSet[] = [
     achievementId: "tang_lady_01",
   },
   {
+    id: "tang_yide_horse_attendant_01",
+    name: "懿德太子牵马侍从套装",
+    requiredItemIds: [
+      "tang_yide_horse_attendant_01_top",
+      "tang_yide_horse_attendant_01_bottom",
+    ],
+    achievementId: "yide_horse_attendant",
+  },
+  {
     id: "night_banquet_pipa_lady",
     name: "《韩熙载夜宴图》琵琶女",
     requiredItemIds: [
@@ -36,17 +45,6 @@ export const sets: DressSet[] = [
       "night_banquet_pipa_lady_pipa",
     ],
     achievementId: "night_banquet_pipa_lady",
-  },
-  {
-    id: "night_banquet_dancer_lady",
-    name: "《韩熙载夜宴图》跳舞女",
-    requiredItemIds: [
-      "night_banquet_dancer_lady_hair",
-      "night_banquet_dancer_lady_top",
-      "night_banquet_dancer_lady_skirt",
-      "night_banquet_dancer_lady_shawl",
-    ],
-    achievementId: "night_banquet_dancer_lady",
   },
   {
     id: "night_banquet_clapping_lady",

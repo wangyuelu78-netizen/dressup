@@ -1,6 +1,6 @@
 import { useState } from "react";
 import HomePage from "../pages/HomePage.jsx";
-import DressUpPage from "../pages/DressUpPage.jsx";
+import DressUpPage from "../pages/DressupPage.jsx";
 import ResultPage from "../pages/ResultPage.jsx";
 import Button from "../shared/components/Button.jsx";
 
