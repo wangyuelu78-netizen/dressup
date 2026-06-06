@@ -1,9 +1,9 @@
 :root {
-  --paper: #fbf7ef;
-  --paper-strong: #f4eadb;
+  --paper: #f8f7f2;
+  --paper-strong: #e6eee9;
   --ink: #2b2118;
   --muted: #70685f;
-  --line: #ded4c5;
+  --line: #d8ddd4;
   --cinnabar: #a63f2d;
   --jade: #2f6f67;
   --gold: #c48b39;
@@ -54,7 +54,7 @@ button {
   flex-direction: column;
   gap: 24px;
   padding: 28px 20px;
-  background: #efe3d2;
+  background: #dfeae5;
   border-right: 1px solid var(--line);
 }
 
@@ -160,7 +160,7 @@ button {
 }
 
 .info-card,
-.relic-card,
+.source-card,
 .item-card,
 .result-panel {
   border: 1px solid var(--line);
@@ -169,18 +169,18 @@ button {
 }
 
 .info-card,
-.relic-card,
+.source-card,
 .result-panel {
   padding: 18px;
 }
 
 .info-card h3,
-.relic-card h3 {
+.source-card h3 {
   margin: 0 0 8px;
 }
 
 .info-card p,
-.relic-card p {
+.source-card p {
   margin: 0;
   color: var(--muted);
 }
@@ -204,7 +204,7 @@ button {
   border: 1px solid var(--line);
   border-radius: 8px;
   background:
-    linear-gradient(rgba(255, 255, 255, 0.52), rgba(255, 255, 255, 0.52)),
+    linear-gradient(rgba(255, 255, 255, 0.64), rgba(255, 255, 255, 0.64)),
     url("./assets/backgrounds/studio.svg") center/cover;
   box-shadow: var(--shadow);
 }
@@ -215,23 +215,58 @@ button {
   aspect-ratio: 7 / 10;
 }
 
+.canvas-stage-square {
+  width: min(512px, 78vw);
+  aspect-ratio: 1;
+}
+
 .character-base,
 .canvas-layer {
   position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   user-select: none;
   pointer-events: none;
 }
 
 .character-base {
-  inset: 0;
-  width: 100%;
-  height: 100%;
   object-fit: contain;
 }
 
 .canvas-layer {
   object-fit: contain;
   transform-origin: center;
+}
+
+.character-placeholder {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 50% 22%, #e5bba0 0 13%, transparent 13.5%),
+    radial-gradient(circle at 50% 58%, #e5bba0 0 25%, transparent 25.5%),
+    #f6f1e8;
+  border: 1px dashed var(--line);
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.layer-fallback {
+  display: grid;
+  place-items: center;
+  margin: auto;
+  width: 58%;
+  height: 18%;
+  border: 1px dashed var(--jade);
+  border-radius: 8px;
+  background: rgba(47, 111, 103, 0.16);
+  color: var(--jade);
+  font-size: 14px;
+  font-weight: 800;
+  text-align: center;
 }
 
 .canvas-empty {
@@ -286,6 +321,7 @@ button {
 }
 
 .item-thumb {
+  position: relative;
   width: 74px;
   height: 74px;
   display: grid;
@@ -293,11 +329,22 @@ button {
   border-radius: 8px;
   background: #f6eee0;
   border: 1px solid var(--line);
+  overflow: hidden;
 }
 
 .item-thumb img {
+  position: absolute;
+  inset: 3px;
   max-width: 68px;
   max-height: 68px;
+  margin: auto;
+  z-index: 1;
+}
+
+.item-thumb-fallback {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
 }
 
 .item-meta {
@@ -326,7 +373,7 @@ button {
 }
 
 .modal-panel {
-  width: min(460px, 100%);
+  width: min(520px, 100%);
   border-radius: 8px;
   padding: 20px;
   background: var(--paper);
@@ -342,6 +389,39 @@ button {
 
 .loading {
   color: var(--muted);
+}
+
+.source-role,
+.source-scene {
+  font-weight: 800;
+}
+
+.achievement-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.achievement-modal-body {
+  display: grid;
+  gap: 14px;
+}
+
+.achievement-title {
+  margin: 0;
+  color: var(--cinnabar);
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.achievement-subtitle {
+  margin: 0;
+  color: var(--muted);
+}
+
+.achievement-actions {
+  display: flex;
+  justify-content: flex-end;
 }
 
 @media (max-width: 900px) {
@@ -366,7 +446,8 @@ button {
 
   .page-header,
   .dressup-layout,
-  .home-grid {
+  .home-grid,
+  .achievement-grid {
     grid-template-columns: 1fr;
   }
 
