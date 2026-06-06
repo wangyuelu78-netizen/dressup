@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 140" role="img" aria-label="jade earrings mock asset">
+  <g fill="none" stroke="#2f6f67" stroke-width="10" stroke-linecap="round">
+    <path d="M35 18c-18 28-17 63 2 95"/>
+    <path d="M185 18c18 28 17 63-2 95"/>
+  </g>
+  <g fill="#8fc8b7" stroke="#2f6f67" stroke-width="5">
+    <ellipse cx="44" cy="112" rx="16" ry="24"/>
+    <ellipse cx="176" cy="112" rx="16" ry="24"/>
+  </g>
+</svg>

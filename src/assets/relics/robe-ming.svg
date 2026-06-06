@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 360" role="img" aria-label="Ming robe mock asset">
+  <path d="M92 20c29 28 73 28 116 0 44 29 70 84 77 165l10 130c-54 20-141 28-290 0l10-130C22 104 48 49 92 20Z" fill="#a63f2d"/>
+  <path d="M107 33c16 55 17 165 1 300M193 33c-16 55-17 165-1 300" fill="none" stroke="#7c2d22" stroke-width="8"/>
+  <path d="M80 105c39 22 88 22 140 0M43 214c65 20 138 20 214 0" fill="none" stroke="#d2a35e" stroke-width="7" stroke-linecap="round"/>
+  <path d="M129 39c14 18 28 27 42 0" fill="none" stroke="#f3d58e" stroke-width="7" stroke-linecap="round"/>
+</svg>

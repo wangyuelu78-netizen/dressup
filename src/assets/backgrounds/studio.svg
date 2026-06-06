@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 900" role="img" aria-label="museum studio background">
+  <rect width="900" height="900" fill="#f4eadb"/>
+  <path d="M0 660h900v240H0z" fill="#e8d7bf"/>
+  <path d="M120 140h660v470H120z" fill="#fbf7ef" stroke="#ded4c5" stroke-width="8"/>
+  <path d="M180 210h540M180 300h540M180 390h540M180 480h540" stroke="#eadcc9" stroke-width="4"/>
+  <circle cx="142" cy="688" r="42" fill="#a63f2d" opacity=".14"/>
+  <circle cx="735" cy="680" r="58" fill="#2f6f67" opacity=".13"/>
+</svg>
