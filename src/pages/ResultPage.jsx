@@ -3,7 +3,10 @@ import { toPng } from "html-to-image";
 import DressupCanvas from "../features/dressup/components/DressupCanvas.jsx";
 import SceneUnlockModal from "../features/sceneUnlock/components/SceneUnlockModal.jsx";
 import { scenePresets } from "../features/sceneUnlock/data/scenePresets.js";
-import { findUnlockedScene } from "../features/sceneUnlock/utils/unlockRules.js";
+import {
+  findClosestUnlockHint,
+  findUnlockedScene,
+} from "../features/sceneUnlock/utils/unlockRules.js";
 import RelicCard from "../features/relicInfo/components/RelicCard.jsx";
 import { relicInfoList } from "../features/relicInfo/data/relicInfo.js";
 import Button from "../shared/components/Button.jsx";
@@ -14,12 +17,25 @@ export default function ResultPage({ onNavigate }) {
   const [activeRelic, setActiveRelic] = useState(null);
   const [showSceneModal, setShowSceneModal] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-  const resultRef = useRef(null);
+  const [copyStatus, setCopyStatus] = useState("复制分享文案");
+  const posterRef = useRef(null);
   const selectedItems = useMemo(
     () => loadFromStorage("dressup_selected_items", []),
     [],
   );
   const unlockedScene = findUnlockedScene(selectedItems, scenePresets);
+  const closestHint = useMemo(
+    () =>
+      unlockedScene.id === "free-style"
+        ? findClosestUnlockHint(selectedItems, scenePresets)
+        : null,
+    [selectedItems, unlockedScene.id],
+  );
+  const shareText = useMemo(
+    () =>
+      `我在「一键入画」解锁了${unlockedScene.name}：${unlockedScene.title}。${unlockedScene.shareCopy}`,
+    [unlockedScene],
+  );
 
   function getRelicInfo(item) {
     return (
@@ -32,15 +48,15 @@ export default function ResultPage({ onNavigate }) {
   }
 
   async function saveResultImage() {
-    if (!resultRef.current) {
+    if (!posterRef.current) {
       return;
     }
 
     setIsSaving(true);
     try {
-      const imageData = await toPng(resultRef.current, {
+      const imageData = await toPng(posterRef.current, {
         cacheBust: true,
-        backgroundColor: "#fbf7ef",
+        backgroundColor: "#2b2118",
         pixelRatio: 2,
       });
       const link = document.createElement("a");
@@ -49,6 +65,30 @@ export default function ResultPage({ onNavigate }) {
       link.click();
     } finally {
       setIsSaving(false);
+    }
+  }
+
+  async function copyShareText() {
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(shareText);
+      } else {
+        const textarea = document.createElement("textarea");
+        textarea.value = shareText;
+        textarea.setAttribute("readonly", "");
+        textarea.style.position = "fixed";
+        textarea.style.opacity = "0";
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        textarea.remove();
+      }
+
+      setCopyStatus("已复制");
+      window.setTimeout(() => setCopyStatus("复制分享文案"), 1600);
+    } catch {
+      setCopyStatus("复制失败");
+      window.setTimeout(() => setCopyStatus("复制分享文案"), 1600);
     }
   }
 
@@ -65,25 +105,33 @@ export default function ResultPage({ onNavigate }) {
         <div className="result-actions">
           <Button onClick={() => onNavigate("dressup")}>继续搭配</Button>
           <Button onClick={() => onNavigate("dressup")}>再试一次</Button>
+          <Button onClick={copyShareText}>{copyStatus}</Button>
           <Button variant="primary" onClick={saveResultImage} disabled={isSaving}>
             {isSaving ? "保存中" : "保存结果"}
           </Button>
         </div>
       </header>
 
-      <div className="result-showcase" ref={resultRef}>
+      <div className="result-showcase">
         <section
-          className="result-hero"
+          className="result-poster"
+          ref={posterRef}
           style={{ background: unlockedScene.backgroundStyle }}
           aria-label={unlockedScene.backgroundName}
         >
-          <div className="result-scene-copy">
-            <span className="result-scene-label">{unlockedScene.backgroundName}</span>
-            <h2>{unlockedScene.title}</h2>
-            <p>{unlockedScene.description}</p>
-          </div>
-          <div className="result-canvas-wrap">
-            <DressupCanvas selectedItems={selectedItems} />
+          <div className="poster-frame">
+            <div className="poster-copy">
+              <span className="result-scene-label">{unlockedScene.backgroundName}</span>
+              <h2>{unlockedScene.title}</h2>
+              <p>{unlockedScene.description}</p>
+            </div>
+            <div className="poster-canvas-wrap">
+              <DressupCanvas selectedItems={selectedItems} />
+            </div>
+            <div className="poster-footer">
+              <span>{unlockedScene.name}</span>
+              <strong>一键入画</strong>
+            </div>
           </div>
         </section>
 
@@ -92,6 +140,12 @@ export default function ResultPage({ onNavigate }) {
             <p className="result-panel-kicker">UNLOCKED</p>
             <h3>{unlockedScene.name}</h3>
             <p>{unlockedScene.shareCopy}</p>
+            {closestHint && (
+              <div className="unlock-hint">
+                <strong>{closestHint.title}</strong>
+                <span>{closestHint.description}</span>
+              </div>
+            )}
             <Button className="result-panel-button" onClick={() => setShowSceneModal(true)}>
               查看场景
             </Button>
