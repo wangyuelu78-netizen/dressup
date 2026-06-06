@@ -11,7 +11,7 @@ export default function ItemPanel({
   const isSelected = (item) => Object.values(equipped).some((equippedItem) => equippedItem.id === item.id);
 
   return (
-    <aside className="item-panel" aria-label="文物素材面板">
+    <aside className="item-panel" aria-label="古画服饰面板">
       <CategoryTabs
         activeCategory={activeCategory}
         categories={categories}

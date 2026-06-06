@@ -23,7 +23,7 @@ export const achievements: Achievement[] = [
     id: "tang_lady_01",
     title: "今天也是大唐美人",
     subtitle: "成就解锁！",
-    sourcePainting: "仕女图",
+    sourcePainting: "簪花仕女图",
     sourceRole: "唐代仕女",
     description:
       "高髻、花饰、披帛与长裙组合出唐代仕女常见的华丽轮廓，适合后续扩展妆容、姿态与场景。",
@@ -31,32 +31,32 @@ export const achievements: Achievement[] = [
   },
   {
     id: "night_banquet_pipa_lady",
-    title: "夜场蹦迪：琵琶开场",
+    title: "夜宴乐舞：琵琶开场",
     subtitle: "成就解锁！",
     sourcePainting: "韩熙载夜宴图",
     sourceRole: "琵琶女",
     description:
-      "取意于夜宴开场的乐舞氛围。上衣、长裙与琵琶组合出完整乐伎形象。",
+      "取意于《韩熙载夜宴图》中的乐舞场景。上衣、长裙与琵琶组合出完整乐伎形象，呈现宴饮空间中的音乐表演。",
     scene: "夜宴厅堂",
   },
   {
     id: "night_banquet_dancer_lady",
-    title: "夜场蹦迪：舞步上线",
+    title: "夜宴乐舞：舞步上线",
     subtitle: "成就解锁！",
     sourcePainting: "韩熙载夜宴图",
     sourceRole: "跳舞女",
     description:
-      "发式、上衣、裙装与披帛共同形成舞女套装，强调画面中的动态姿态和宴饮娱乐气氛。",
+      "发式、上衣、裙装与披帛共同形成舞女套装，强调画面中的动态姿态、乐舞表演与宴饮氛围。",
     scene: "夜宴厅堂",
   },
   {
     id: "night_banquet_clapping_lady",
-    title: "夜场蹦迪：气氛组就位",
+    title: "夜宴乐舞：掌声相和",
     subtitle: "成就解锁！",
     sourcePainting: "韩熙载夜宴图",
     sourceRole: "鼓掌女",
     description:
-      "头饰、长袍与束带组合成鼓掌女形象，适合作为夜宴场景中的互动成就分支。",
+      "头饰、长袍与束带组合成鼓掌女形象，表现夜宴场景中观演互动与人物群像的细节。",
     scene: "夜宴厅堂",
   },
 ];

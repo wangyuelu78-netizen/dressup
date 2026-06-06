@@ -18,7 +18,7 @@ export const sets: DressSet[] = [
   },
   {
     id: "tang_lady_01",
-    name: "仕女图 / 唐代仕女形象",
+    name: "《簪花仕女图》唐代仕女",
     requiredItemIds: [
       "tang_lady_01_hair",
       "tang_lady_01_flower",

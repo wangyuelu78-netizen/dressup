@@ -3,10 +3,10 @@ import SourceCard from "../features/achievements/components/SourceCard.jsx";
 import CharacterSelector from "../features/dressup/components/CharacterSelector.jsx";
 import DressCanvas from "../features/dressup/components/DressCanvas.jsx";
 import ItemPanel from "../features/dressup/components/ItemPanel.jsx";
-import useDressUpState from "../features/dressup/hooks/useDressUpState.js";
+import useDressUpState from "../features/dressup/hooks/useDressupState.js";
 import Button from "../shared/components/Button.jsx";
 
-export default function DressUpPage() {
+export default function DressupPage() {
   const {
     activeAchievement,
     activeCategory,
@@ -28,7 +28,7 @@ export default function DressUpPage() {
     <section className="page">
       <header className="page-header">
         <div>
-          <p className="page-kicker">DRESS UP</p>
+          <p className="page-kicker">DRESSUP</p>
           <h1 className="page-title">画中衣橱</h1>
           <p className="page-copy">把古画中的人物服饰穿到卡通角色身上</p>
         </div>
