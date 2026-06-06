@@ -567,7 +567,9 @@ button {
 
 .gf-panel-actions {
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-end;
+  gap: 8px;
 }
 
 .gf-action-button {
@@ -584,8 +586,34 @@ button {
   font-weight: 900;
 }
 
+.gf-action-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+}
+
+.gf-action-button-primary {
+  flex: 1 1 150px;
+  justify-content: center;
+  border-color: transparent;
+  background: var(--mini-primary);
+  color: #fffdf8;
+  box-shadow: 0 10px 20px rgba(71, 112, 95, 0.16);
+}
+
+.gf-action-button-ghost {
+  flex: 0 0 auto;
+}
+
 .gf-action-button .material-symbols-outlined {
   font-size: 16px;
+}
+
+.gf-panel-message {
+  margin: -2px 2px 0;
+  color: var(--mini-cinnabar);
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1.45;
 }
 
 .archive-page,

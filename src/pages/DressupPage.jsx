@@ -11,11 +11,12 @@ export default function DressupPage({
   unlockedAchievementIds,
 }) {
   const {
-    activeAchievement,
+    activeAchievementFeedback,
     activeCategory,
     categories,
     characters,
-    closeAchievement,
+    closeAchievementFeedback,
+    confirmDressUp,
     currentSource,
     equipped,
     equippedItems,
@@ -70,6 +71,7 @@ export default function DressupPage({
           equipped={equipped}
           items={visibleItems}
           onCategoryChange={setActiveCategory}
+          onConfirm={confirmDressUp}
           onEquipItem={equipItem}
           onReset={resetDressUp}
         >
@@ -82,11 +84,11 @@ export default function DressupPage({
       </main>
 
       <AchievementModal
-        achievement={activeAchievement}
-        open={Boolean(activeAchievement)}
-        onClose={closeAchievement}
+        feedback={activeAchievementFeedback}
+        open={Boolean(activeAchievementFeedback)}
+        onClose={closeAchievementFeedback}
         onViewAchievements={() => {
-          closeAchievement();
+          closeAchievementFeedback();
           if (onNavigate) {
             onNavigate("result");
           }

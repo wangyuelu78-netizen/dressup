@@ -38,10 +38,12 @@ export default function ItemPanel({
   items,
   equipped,
   onCategoryChange,
+  onConfirm,
   onEquipItem,
   onReset,
 }) {
   const isSelected = (item) => Object.values(equipped).some((equippedItem) => equippedItem.id === item.id);
+  const hasEquippedItems = Object.keys(equipped).length > 0;
 
   return (
     <aside className="gf-panel" aria-label="衣物选择面板">
@@ -88,6 +90,15 @@ export default function ItemPanel({
       </div>
 
       <div className="gf-panel-actions">
+        <button
+          className="gf-action-button gf-action-button-primary"
+          type="button"
+          onClick={() => (onConfirm ? onConfirm() : null)}
+          disabled={!hasEquippedItems}
+        >
+          <span className="material-symbols-outlined">check_circle</span>
+          确认搭配
+        </button>
         <button
           className="gf-action-button gf-action-button-ghost"
           type="button"
