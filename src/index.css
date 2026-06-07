@@ -1097,22 +1097,3 @@ button {
   font-weight: 700;
   letter-spacing: 0.06em;
 }
-
-.achievement-grid::after {
-  content: "“对话框”占位\\A（在展示搭配页中显示互动内容）";
-  white-space: pre-line;
-  position: absolute;
-  top: 14%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(320px, 86%);
-  padding: 12px 14px;
-  border-radius: 16px;
-  border: 1px solid color-mix(in srgb, var(--line) 100%, transparent);
-  background: color-mix(in srgb, #ffffff 82%, transparent);
-  box-shadow: 0 14px 30px rgba(43, 33, 24, 0.1);
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.5;
-  pointer-events: none;
-}
