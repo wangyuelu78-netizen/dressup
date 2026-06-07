@@ -7,7 +7,7 @@ export default function VideoResult({ message, result, selectedCharacter }) {
     setVideoMissing(false);
   }, [result?.videoSrc]);
 
-  if (message) {
+  if (message && !result) {
     return (
       <section className="video-result video-result-message" aria-live="polite">
         <p>{message}</p>
@@ -48,7 +48,7 @@ export default function VideoResult({ message, result, selectedCharacter }) {
       ) : (
         <video
           src={result.videoSrc}
-          controls
+          aria-label={`${result.outfit.name}动态画面`}
           autoPlay
           muted
           loop

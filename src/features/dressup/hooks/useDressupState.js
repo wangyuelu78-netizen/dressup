@@ -100,7 +100,6 @@ export default function useDressUpState({
   }
 
   function evaluateSelection(nextCharacterId, nextTopOutfitId, nextBottomOutfitId) {
-    setResult(null);
     setActiveAchievementFeedback(null);
 
     if (!nextCharacterId || !nextTopOutfitId || !nextBottomOutfitId) {
