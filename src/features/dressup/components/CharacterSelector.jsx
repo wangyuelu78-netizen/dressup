@@ -22,6 +22,7 @@ function CharacterOption({ character, selected, onSelect }) {
         )}
       </span>
       <span>{character.name}</span>
+      {character.type && <small>{character.type}</small>}
     </button>
   );
 }
@@ -32,10 +33,10 @@ export default function CharacterSelector({
   onSelectCharacter,
 }) {
   return (
-    <section className="character-selector" aria-label="基础角色选择">
+    <section className="character-selector" aria-label="基础灵瑞选择">
       <div>
-        <h2>选择小猫</h2>
-        <p>先选择一只小猫，再选择同套上衣和下装进入画中。</p>
+        <h2>选择灵瑞</h2>
+        <p>先选择一位灵瑞，再选择同套上衣和下装进入画中。</p>
       </div>
       <div className="character-options">
         {characters.map((character) => (

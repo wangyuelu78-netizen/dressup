@@ -2282,3 +2282,792 @@ button:focus-visible {
     width: min(100%, 210px);
   }
 }
+
+/* Fresh ink-wash visual refresh. Kept as overrides so existing layout and logic stay intact. */
+:root {
+  --color-bg: #f7f1e5;
+  --color-bg-soft: #fbf7ee;
+  --color-card: rgba(255, 252, 244, 0.88);
+  --color-primary: #9bb7a5;
+  --color-primary-dark: #6f927a;
+  --color-secondary: #d8a7a1;
+  --color-accent: #d6b56d;
+  --color-ink: #3f3328;
+  --color-muted: #8a7b6b;
+  --color-line: rgba(83, 68, 49, 0.16);
+  --color-moon: #f8fbf6;
+  --color-sky: #d8e7df;
+  --color-lotus: #ead7d6;
+  --color-night-ink: #2f2c2a;
+  --color-dark-gold: #a17a38;
+  --mini-bg: var(--color-bg);
+  --mini-surface: var(--color-bg-soft);
+  --mini-surface-strong: var(--color-card);
+  --mini-ink: var(--color-ink);
+  --mini-muted: var(--color-muted);
+  --mini-line: var(--color-line);
+  --mini-primary: var(--color-primary-dark);
+  --mini-primary-soft: rgba(155, 183, 165, 0.22);
+  --mini-cinnabar: #b6716b;
+  --mini-gold: var(--color-accent);
+  --mini-palace-red: #a76561;
+  --mini-palace-red-soft: rgba(216, 167, 161, 0.28);
+  --mini-jade-deep: #557765;
+  --mini-jade-light: #edf5ed;
+  --mini-gold-bright: #e4c984;
+  --mini-gold-deep: #ad843d;
+  --mini-shadow: 0 18px 48px rgba(63, 51, 40, 0.12);
+  --mini-shadow-soft: 0 10px 26px rgba(63, 51, 40, 0.08);
+  --mini-ring: 0 0 0 3px rgba(155, 183, 165, 0.26);
+}
+
+body {
+  color: var(--color-ink);
+  background:
+    radial-gradient(circle at 20% 16%, rgba(155, 183, 165, 0.22), transparent 24%),
+    radial-gradient(circle at 84% 6%, rgba(216, 167, 161, 0.18), transparent 22%),
+    linear-gradient(135deg, rgba(255, 252, 244, 0.82), rgba(247, 241, 229, 0.92));
+}
+
+.mini-shell {
+  background:
+    radial-gradient(ellipse at 50% 100%, rgba(155, 183, 165, 0.15), transparent 44%),
+    radial-gradient(circle at 18% 18%, rgba(214, 181, 109, 0.16), transparent 24%),
+    radial-gradient(circle at 82% 12%, rgba(216, 167, 161, 0.14), transparent 24%),
+    linear-gradient(115deg, rgba(255, 252, 244, 0.42), transparent 42%),
+    var(--color-bg);
+}
+
+.mini-screen {
+  border-color: rgba(63, 51, 40, 0.78);
+  background:
+    radial-gradient(ellipse at 50% 16%, rgba(255, 252, 244, 0.9), transparent 34%),
+    radial-gradient(ellipse at 22% 76%, rgba(155, 183, 165, 0.16), transparent 32%),
+    radial-gradient(ellipse at 80% 70%, rgba(216, 167, 161, 0.12), transparent 30%),
+    linear-gradient(rgba(251, 247, 238, 0.88), rgba(247, 241, 229, 0.94)),
+    radial-gradient(rgba(136, 116, 82, 0.15) 0.65px, transparent 0.65px);
+  background-size: auto, auto, auto, auto, 18px 18px;
+  box-shadow:
+    0 34px 84px rgba(63, 51, 40, 0.22),
+    0 0 0 1px rgba(255, 252, 244, 0.72) inset;
+}
+
+.mini-screen::after {
+  border-color: rgba(214, 181, 109, 0.2);
+  background:
+    radial-gradient(ellipse at 50% 96%, rgba(111, 146, 122, 0.12), transparent 42%),
+    linear-gradient(90deg, transparent 0 48%, rgba(214, 181, 109, 0.07) 48% 52%, transparent 52%),
+    linear-gradient(0deg, transparent 0 48%, rgba(214, 181, 109, 0.06) 48% 52%, transparent 52%);
+  background-size: auto, 34px 34px, 34px 34px;
+}
+
+.mini-topbar h1,
+.gf-game-header .page-title,
+.wardrobe-tray-header h2,
+.archive-card-copy h2,
+.source-row h2,
+.achievement-unlock-copy h3 {
+  font-family: "Noto Serif SC", "STSong", "Songti SC", serif;
+  letter-spacing: 0.04em;
+}
+
+.game-phone-topbar,
+.source-page .mini-topbar,
+.archive-page .mini-topbar,
+.wardrobe-drawer,
+.source-intro,
+.source-row,
+.archive-card,
+.character-option,
+.gf-item-card,
+.video-result,
+.modal-panel {
+  backdrop-filter: blur(12px);
+}
+
+.game-phone-topbar {
+  border-color: rgba(214, 181, 109, 0.42);
+  background:
+    radial-gradient(circle at 12% 20%, rgba(255, 252, 244, 0.86), transparent 28%),
+    linear-gradient(135deg, rgba(255, 252, 244, 0.94), rgba(229, 239, 231, 0.76)),
+    var(--color-card);
+}
+
+.game-phone-topbar .page-kicker,
+.mini-topbar p,
+.source-label,
+.archive-card-copy span,
+.source-row span {
+  color: #b98273;
+  letter-spacing: 0.08em;
+}
+
+.game-phone-topbar .page-title,
+.source-page .mini-topbar h1,
+.archive-page .mini-topbar h1 {
+  color: var(--color-ink);
+}
+
+.button,
+.mini-pill-button,
+.gf-header-button,
+.gf-icon-button,
+.gf-action-button,
+.wardrobe-drawer-tab {
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    background 180ms ease,
+    color 180ms ease;
+}
+
+.button-primary,
+.gf-action-button-primary,
+.wardrobe-drawer-status .wardrobe-confirm-button,
+.achievement-primary-action {
+  border-color: rgba(214, 181, 109, 0.55);
+  background:
+    radial-gradient(circle at 30% 18%, rgba(255, 252, 244, 0.24), transparent 32%),
+    linear-gradient(180deg, #8db09b, #5f876f);
+  color: #fffdf6;
+  box-shadow:
+    0 12px 26px rgba(95, 135, 111, 0.22),
+    inset 0 1px 0 rgba(255, 252, 244, 0.3);
+}
+
+.gf-action-button-primary:hover,
+.wardrobe-drawer-status .wardrobe-confirm-button:hover,
+.achievement-primary-action:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 16px 30px rgba(95, 135, 111, 0.26),
+    0 0 0 4px rgba(214, 181, 109, 0.13);
+}
+
+.button:disabled,
+.gf-action-button:disabled {
+  box-shadow: none;
+}
+
+.character-option,
+.gf-item-card,
+.archive-card,
+.source-row {
+  border-color: rgba(214, 181, 109, 0.32);
+  background:
+    linear-gradient(145deg, rgba(255, 252, 244, 0.92), rgba(251, 247, 238, 0.74)),
+    radial-gradient(rgba(136, 116, 82, 0.1) 0.55px, transparent 0.55px);
+  background-size: auto, 16px 16px;
+  box-shadow:
+    0 12px 28px rgba(63, 51, 40, 0.08),
+    inset 0 0 0 1px rgba(255, 252, 244, 0.68);
+}
+
+.character-option:hover,
+.gf-item-card:hover,
+.archive-card:hover,
+.source-row:hover {
+  transform: translateY(-2px);
+  border-color: rgba(214, 181, 109, 0.72);
+  box-shadow:
+    0 16px 34px rgba(63, 51, 40, 0.12),
+    0 0 0 4px rgba(214, 181, 109, 0.11);
+}
+
+.character-option-active,
+.gf-item-card-active,
+.mini-tab-active {
+  border-color: rgba(214, 181, 109, 0.86);
+  background:
+    radial-gradient(circle at 50% 12%, rgba(255, 252, 244, 0.9), transparent 32%),
+    linear-gradient(145deg, rgba(255, 252, 244, 0.98), rgba(229, 239, 231, 0.88));
+  color: var(--color-primary-dark);
+  box-shadow:
+    0 12px 28px rgba(111, 146, 122, 0.18),
+    0 0 0 3px rgba(214, 181, 109, 0.18),
+    inset 0 0 0 1px rgba(255, 252, 244, 0.84);
+}
+
+.character-thumb,
+.gf-item-thumb,
+.archive-card-image,
+.archive-card-lock {
+  border-color: rgba(214, 181, 109, 0.34);
+  background:
+    radial-gradient(circle at 50% 34%, rgba(255, 252, 244, 0.96), transparent 48%),
+    radial-gradient(ellipse at 50% 92%, rgba(155, 183, 165, 0.22), transparent 46%),
+    #f4ead8;
+}
+
+.character-thumb img,
+.video-result-placeholder img {
+  filter: drop-shadow(0 14px 22px rgba(111, 146, 122, 0.22));
+}
+
+.video-result-placeholder img {
+  animation: spiritFloat 4.2s ease-in-out infinite;
+}
+
+.wardrobe-drawer {
+  border-color: rgba(214, 181, 109, 0.46);
+  background:
+    linear-gradient(rgba(255, 252, 244, 0.88), rgba(251, 247, 238, 0.92)),
+    radial-gradient(circle at 18% 0%, rgba(216, 167, 161, 0.14), transparent 34%),
+    radial-gradient(circle at 88% 12%, rgba(155, 183, 165, 0.2), transparent 32%),
+    repeating-linear-gradient(90deg, rgba(214, 181, 109, 0.06) 0 1px, transparent 1px 16px);
+}
+
+.wardrobe-drawer-tab-active {
+  border-color: rgba(214, 181, 109, 0.84);
+  background:
+    radial-gradient(circle at 50% 4%, rgba(255, 252, 244, 0.7), transparent 34%),
+    linear-gradient(180deg, #e8d49a, #d6b56d 52%, #b28a45);
+}
+
+.wardrobe-drawer-status p {
+  background:
+    linear-gradient(180deg, rgba(255, 252, 244, 0.9), rgba(229, 239, 231, 0.56));
+  color: var(--color-muted);
+}
+
+.video-result {
+  border-color: rgba(214, 181, 109, 0.58);
+  border-radius: 30px;
+  background:
+    radial-gradient(ellipse at 50% 28%, rgba(255, 252, 244, 0.96), transparent 36%),
+    radial-gradient(ellipse at 18% 74%, rgba(216, 167, 161, 0.13), transparent 32%),
+    radial-gradient(ellipse at 78% 76%, rgba(155, 183, 165, 0.18), transparent 34%),
+    linear-gradient(180deg, #f4ead8, #fbf7ee);
+}
+
+.video-result::before,
+.video-result::after {
+  border-color: rgba(214, 181, 109, 0.76);
+}
+
+.video-result video,
+.video-placeholder,
+.video-result-placeholder img {
+  border: 1px solid rgba(214, 181, 109, 0.32);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 50% 36%, rgba(255, 252, 244, 0.9), transparent 46%),
+    linear-gradient(180deg, #f6efdf, #fbf7ee);
+}
+
+.video-placeholder {
+  color: var(--color-muted);
+  animation: scrollBreath 2.8s ease-in-out infinite;
+}
+
+.video-placeholder strong,
+.video-result-meta h2 {
+  color: var(--color-primary-dark);
+}
+
+.video-result-meta {
+  border-color: rgba(214, 181, 109, 0.34);
+  background:
+    linear-gradient(180deg, rgba(255, 252, 244, 0.92), rgba(229, 239, 231, 0.7));
+}
+
+.wardrobe-card-mystery {
+  border-color: rgba(161, 122, 56, 0.5);
+  background:
+    radial-gradient(circle at 50% 26%, rgba(214, 181, 109, 0.16), transparent 38%),
+    linear-gradient(145deg, rgba(69, 61, 52, 0.9), rgba(47, 44, 42, 0.86)),
+    radial-gradient(rgba(214, 181, 109, 0.18) 0.55px, transparent 0.55px);
+  color: #f8f2df;
+}
+
+.wardrobe-card-mystery:hover {
+  border-color: rgba(214, 181, 109, 0.88);
+  box-shadow:
+    0 16px 34px rgba(47, 44, 42, 0.22),
+    0 0 0 4px rgba(214, 181, 109, 0.14),
+    0 0 24px rgba(214, 181, 109, 0.28);
+}
+
+.wardrobe-card-mystery.wardrobe-card-active {
+  border-color: rgba(214, 181, 109, 0.96);
+  box-shadow:
+    0 16px 34px rgba(47, 44, 42, 0.24),
+    0 0 0 3px rgba(214, 181, 109, 0.2),
+    0 0 28px rgba(214, 181, 109, 0.34);
+}
+
+.gf-item-thumb-mystery {
+  border-color: rgba(214, 181, 109, 0.42);
+  background:
+    radial-gradient(circle at 50% 28%, rgba(214, 181, 109, 0.18), transparent 42%),
+    linear-gradient(180deg, #3e3934, #242322);
+}
+
+.gf-item-thumb-mystery img {
+  filter: brightness(0) saturate(0) opacity(0.86) drop-shadow(0 10px 14px rgba(214, 181, 109, 0.22));
+}
+
+.mystery-silhouette {
+  width: 58%;
+  aspect-ratio: 0.72;
+  display: grid;
+  place-items: center;
+  border-radius: 48% 48% 38% 38%;
+  background: #121110;
+  color: rgba(214, 181, 109, 0.8);
+  font-weight: 900;
+  box-shadow:
+    0 0 22px rgba(214, 181, 109, 0.22),
+    inset 0 0 0 1px rgba(214, 181, 109, 0.18);
+}
+
+.wardrobe-hidden-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 3;
+  border: 1px solid rgba(214, 181, 109, 0.45);
+  border-radius: 999px;
+  padding: 3px 7px;
+  background: rgba(47, 44, 42, 0.78);
+  color: #ead49a;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.wardrobe-card-mystery .gf-item-info strong,
+.wardrobe-card-mystery .gf-item-info small {
+  color: #f4ead8;
+}
+
+.wardrobe-card-mystery .wardrobe-part-label {
+  border-color: rgba(214, 181, 109, 0.35);
+  background: rgba(214, 181, 109, 0.16);
+  color: #ead49a !important;
+}
+
+.wardrobe-hover-hint {
+  position: absolute;
+  left: 7px;
+  right: 7px;
+  bottom: 7px;
+  z-index: 4;
+  border-radius: 12px;
+  padding: 6px;
+  background: rgba(33, 30, 27, 0.88);
+  color: #f6e7b9;
+  font-size: 9px;
+  font-weight: 900;
+  line-height: 1.35;
+  opacity: 0;
+  transform: translateY(5px);
+  transition: opacity 180ms ease, transform 180ms ease;
+  pointer-events: none;
+}
+
+.wardrobe-card-mystery:hover .wardrobe-hover-hint {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.video-result-mystery {
+  border-color: rgba(161, 122, 56, 0.66);
+  background:
+    radial-gradient(ellipse at 50% 30%, rgba(214, 181, 109, 0.2), transparent 34%),
+    radial-gradient(ellipse at 50% 100%, rgba(216, 167, 161, 0.12), transparent 38%),
+    linear-gradient(180deg, #efe5d4, #faf7ec);
+}
+
+.video-result-mystery .video-result-meta {
+  border-color: rgba(161, 122, 56, 0.46);
+  background:
+    linear-gradient(180deg, rgba(255, 252, 244, 0.94), rgba(232, 212, 162, 0.66));
+}
+
+.modal-backdrop {
+  background:
+    radial-gradient(circle at 50% 34%, rgba(255, 252, 244, 0.18), transparent 28%),
+    rgba(63, 51, 40, 0.44);
+}
+
+.modal-panel {
+  animation: modalBloom 220ms ease-out;
+}
+
+.achievement-unlock-panel {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(214, 181, 109, 0.18), transparent 32%),
+    linear-gradient(rgba(255, 252, 244, 0.94), rgba(251, 247, 238, 0.96));
+}
+
+.achievement-unlock-card h2 {
+  color: #b98273;
+  letter-spacing: 0.08em;
+}
+
+.achievement-unlock-copy h3 {
+  color: var(--color-primary-dark);
+}
+
+.achievement-tone-night {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(214, 181, 109, 0.22), transparent 32%),
+    radial-gradient(circle at 80% 18%, rgba(216, 167, 161, 0.14), transparent 24%),
+    linear-gradient(180deg, rgba(255, 252, 244, 0.94), rgba(237, 228, 214, 0.96));
+}
+
+.achievement-tone-night .achievement-unlock-copy h3,
+.archive-card-night .archive-card-copy h2 {
+  color: #6c5140;
+}
+
+.achievement-tone-luoshen {
+  background:
+    radial-gradient(ellipse at 50% 8%, rgba(216, 231, 223, 0.72), transparent 36%),
+    radial-gradient(circle at 84% 18%, rgba(216, 167, 161, 0.18), transparent 24%),
+    linear-gradient(180deg, rgba(248, 251, 246, 0.95), rgba(251, 247, 238, 0.96));
+}
+
+.achievement-tone-luoshen .achievement-unlock-copy h3,
+.archive-card-luoshen .archive-card-copy h2 {
+  color: #5f8c81;
+}
+
+.achievement-tone-mystery {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(214, 181, 109, 0.22), transparent 34%),
+    linear-gradient(180deg, rgba(68, 60, 52, 0.96), rgba(47, 44, 42, 0.96));
+  color: #f8f2df;
+}
+
+.achievement-tone-mystery .achievement-unlock-card h2,
+.achievement-tone-mystery .achievement-unlock-copy h3,
+.achievement-tone-mystery .achievement-unlock-copy p {
+  color: #f8f2df;
+}
+
+.archive-card-night {
+  background:
+    radial-gradient(circle at 80% 20%, rgba(214, 181, 109, 0.16), transparent 30%),
+    linear-gradient(180deg, rgba(255, 252, 244, 0.92), rgba(239, 229, 212, 0.86));
+}
+
+.archive-card-luoshen {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(216, 231, 223, 0.72), transparent 38%),
+    linear-gradient(180deg, rgba(255, 252, 244, 0.94), rgba(242, 236, 232, 0.86));
+}
+
+.archive-card-mystery {
+  border-color: rgba(161, 122, 56, 0.58);
+  background:
+    radial-gradient(circle at 80% 20%, rgba(214, 181, 109, 0.18), transparent 28%),
+    linear-gradient(145deg, rgba(69, 61, 52, 0.9), rgba(47, 44, 42, 0.86));
+}
+
+.archive-card-mystery .archive-card-copy span,
+.archive-card-mystery .archive-card-copy h2,
+.archive-card-mystery .archive-card-copy p {
+  color: #f8f2df;
+}
+
+@keyframes spiritFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+@keyframes scrollBreath {
+  0%,
+  100% {
+    box-shadow: 0 16px 34px rgba(63, 51, 40, 0.12);
+  }
+
+  50% {
+    box-shadow:
+      0 18px 38px rgba(63, 51, 40, 0.14),
+      0 0 0 4px rgba(214, 181, 109, 0.12);
+  }
+}
+
+@keyframes modalBloom {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 1ms !important;
+  }
+}
+
+/* Second pass: make the refreshed style visibly lighter and fix clipped source-page controls. */
+.mini-shell {
+  background:
+    radial-gradient(ellipse at 16% 12%, rgba(155, 183, 165, 0.22), transparent 30%),
+    radial-gradient(ellipse at 88% 18%, rgba(216, 167, 161, 0.14), transparent 28%),
+    linear-gradient(135deg, #fbf7ee 0%, #f7f1e5 48%, #eef5ee 100%);
+}
+
+.mini-screen {
+  background:
+    linear-gradient(180deg, rgba(255, 252, 244, 0.86), rgba(247, 241, 229, 0.9)),
+    radial-gradient(circle at 18% 10%, rgba(155, 183, 165, 0.16), transparent 22%),
+    radial-gradient(circle at 86% 4%, rgba(216, 167, 161, 0.12), transparent 22%),
+    repeating-linear-gradient(0deg, rgba(83, 68, 49, 0.035) 0 1px, transparent 1px 18px);
+}
+
+.source-page,
+.archive-page {
+  gap: 12px;
+  padding-top: 18px;
+}
+
+.source-page::before,
+.archive-page::before {
+  inset: 92px 18px auto;
+  height: 118px;
+  border-radius: 999px;
+  background:
+    radial-gradient(ellipse at 35% 70%, rgba(155, 183, 165, 0.18), transparent 44%),
+    radial-gradient(ellipse at 70% 74%, rgba(216, 167, 161, 0.1), transparent 42%);
+}
+
+.source-page .mini-topbar,
+.archive-page .mini-topbar,
+.game-phone-topbar {
+  min-height: 84px;
+  border-radius: 24px;
+  padding: 14px 16px;
+  background:
+    linear-gradient(135deg, rgba(255, 252, 244, 0.96), rgba(237, 245, 237, 0.84)),
+    radial-gradient(circle at 12% 18%, rgba(214, 181, 109, 0.12), transparent 30%);
+  box-shadow:
+    0 12px 28px rgba(63, 51, 40, 0.08),
+    inset 0 0 0 1px rgba(255, 252, 244, 0.8);
+}
+
+.source-page .mini-topbar::after,
+.archive-page .mini-topbar::after {
+  display: none;
+}
+
+.source-page .mini-topbar h1,
+.archive-page .mini-topbar h1,
+.game-phone-topbar .page-title {
+  color: #3f3328;
+  font-size: 30px;
+  letter-spacing: 0.03em;
+  text-shadow: none;
+}
+
+.source-page .mini-topbar p,
+.archive-page .mini-topbar p,
+.game-phone-topbar .page-kicker {
+  color: #7c9b86;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+}
+
+.source-page .gf-icon-button,
+.archive-page .mini-pill-button,
+.game-phone-topbar .gf-icon-button,
+.game-phone-topbar .gf-header-button {
+  width: auto;
+  min-width: 46px;
+  height: 46px;
+  min-height: 46px;
+  border-color: rgba(155, 183, 165, 0.46);
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at 34% 22%, rgba(255, 252, 244, 0.84), transparent 34%),
+    linear-gradient(180deg, #f8fbf6, #dceade);
+  color: #557765;
+  box-shadow: 0 10px 22px rgba(85, 119, 101, 0.14);
+}
+
+.source-page .gf-icon-button .material-symbols-outlined,
+.game-phone-topbar .gf-icon-button .material-symbols-outlined,
+.game-phone-topbar .gf-header-button .material-symbols-outlined {
+  font-size: 23px;
+}
+
+.source-intro {
+  grid-template-columns: 38px minmax(0, 1fr);
+  min-height: auto;
+  overflow: visible;
+  padding: 14px 16px;
+  border-color: rgba(155, 183, 165, 0.28);
+  border-radius: 22px;
+  background:
+    linear-gradient(135deg, rgba(255, 252, 244, 0.94), rgba(238, 245, 238, 0.82)),
+    radial-gradient(circle at 100% 0%, rgba(214, 181, 109, 0.13), transparent 30%);
+}
+
+.source-intro::after {
+  content: "";
+}
+
+.source-intro .material-symbols-outlined {
+  width: 38px;
+  height: 38px;
+  background:
+    radial-gradient(circle at 34% 24%, rgba(255, 252, 244, 0.92), transparent 32%),
+    linear-gradient(180deg, #a9c6b3, #6f927a);
+  box-shadow: 0 8px 18px rgba(111, 146, 122, 0.18);
+}
+
+.source-intro p {
+  color: #557765;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.source-row,
+.archive-card {
+  border-radius: 24px;
+  padding: 18px 18px 18px 20px;
+  background:
+    linear-gradient(145deg, rgba(255, 252, 244, 0.95), rgba(251, 247, 238, 0.86)),
+    radial-gradient(circle at 100% 0%, rgba(155, 183, 165, 0.14), transparent 28%);
+}
+
+.source-row::before {
+  width: 4px;
+  background: linear-gradient(180deg, #9bb7a5, #d6b56d);
+}
+
+.source-row span,
+.archive-card-copy span {
+  color: #9f7b42;
+}
+
+.source-row h2,
+.archive-card-copy h2 {
+  color: #3f3328;
+}
+
+.source-row p,
+.archive-card-copy p {
+  color: #75695e;
+}
+
+.source-row strong,
+.archive-card-copy strong {
+  border-color: rgba(155, 183, 165, 0.28);
+  background: rgba(237, 245, 237, 0.82);
+  color: #557765;
+}
+
+.mini-tabbar {
+  gap: 6px;
+  padding: 9px 12px calc(9px + env(safe-area-inset-bottom));
+  background:
+    linear-gradient(180deg, rgba(255, 252, 244, 0.96), rgba(247, 241, 229, 0.94));
+}
+
+.mini-tab {
+  min-width: 0;
+  min-height: 54px;
+  border-radius: 16px;
+  padding: 6px 2px;
+}
+
+.mini-tab-active {
+  border-color: rgba(155, 183, 165, 0.5);
+  background:
+    linear-gradient(180deg, rgba(248, 251, 246, 0.98), rgba(220, 234, 223, 0.86));
+  color: #557765;
+  box-shadow:
+    0 8px 18px rgba(85, 119, 101, 0.12),
+    inset 0 0 0 1px rgba(255, 252, 244, 0.82);
+}
+
+.mini-tab span:last-child {
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+@media (max-width: 380px) {
+  .source-page .mini-topbar h1,
+  .archive-page .mini-topbar h1,
+  .game-phone-topbar .page-title {
+    font-size: 27px;
+  }
+
+  .source-page .mini-topbar,
+  .archive-page .mini-topbar {
+    padding: 13px 14px;
+  }
+
+  .source-row,
+  .archive-card {
+    padding: 16px 15px 16px 18px;
+  }
+}
+
+.gf-stage-zone::before,
+.gf-stage-zone::after {
+  display: none;
+}
+
+.archive-card-subtitle {
+  justify-self: start;
+  border: 1px solid rgba(214, 181, 109, 0.32);
+  border-radius: 999px;
+  padding: 4px 8px;
+  background: rgba(255, 252, 244, 0.74);
+  color: #9f7b42;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.character-option small {
+  margin-top: -3px;
+  color: #9f7b42;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.source-row-hidden,
+.archive-card-mystery.archive-card-locked {
+  border-color: rgba(161, 122, 56, 0.44);
+  background:
+    radial-gradient(circle at 80% 18%, rgba(214, 181, 109, 0.14), transparent 30%),
+    linear-gradient(145deg, rgba(69, 61, 52, 0.88), rgba(47, 44, 42, 0.84));
+}
+
+.source-row-hidden span,
+.source-row-hidden h2,
+.source-row-hidden p,
+.source-row-hidden strong,
+.archive-card-mystery.archive-card-locked .archive-card-copy span,
+.archive-card-mystery.archive-card-locked .archive-card-copy h2,
+.archive-card-mystery.archive-card-locked .archive-card-copy p,
+.archive-card-mystery.archive-card-locked .archive-card-copy strong {
+  color: #f8f2df;
+}
+
+.source-row-hidden strong,
+.archive-card-mystery.archive-card-locked .archive-card-copy strong {
+  border-color: rgba(214, 181, 109, 0.32);
+  background: rgba(214, 181, 109, 0.14);
+}

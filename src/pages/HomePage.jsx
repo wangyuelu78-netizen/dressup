@@ -1,6 +1,8 @@
 import { achievements } from "../data/achievements.ts";
 
-export default function HomePage({ onNavigate }) {
+export default function HomePage({ onNavigate, unlockedAchievementIds = [] }) {
+  const unlockedAchievementSet = new Set(unlockedAchievementIds);
+
   return (
     <section className="mini-page source-page">
       <header className="mini-topbar">
@@ -20,16 +22,30 @@ export default function HomePage({ onNavigate }) {
       </div>
 
       <div className="source-list">
-        {achievements.map((achievement) => (
-          <article className="source-row" key={achievement.id}>
-            <div>
-              <span>{achievement.sourcePainting}</span>
-              <h2>{achievement.sourceRole}</h2>
-              <p>{achievement.description}</p>
-            </div>
-            {achievement.scene && <strong>{achievement.scene}</strong>}
-          </article>
-        ))}
+        {achievements.map((achievement) => {
+          const hiddenLocked =
+            achievement.isHidden && !unlockedAchievementSet.has(achievement.id);
+
+          return (
+            <article
+              className={`source-row${achievement.isHidden ? " source-row-hidden" : ""}`}
+              key={achievement.id}
+            >
+              <div>
+                <span>{hiddenLocked ? "？？？" : achievement.sourcePainting}</span>
+                <h2>{hiddenLocked ? "神秘画卷" : achievement.sourceRole}</h2>
+                <p>
+                  {hiddenLocked
+                    ? "隐藏来源尚未解锁，完整选择神秘上装和神秘下装后再来查看。"
+                    : achievement.description}
+                </p>
+              </div>
+              <strong>
+                {hiddenLocked ? "隐藏" : achievement.scene}
+              </strong>
+            </article>
+          );
+        })}
       </div>
     </section>
   );

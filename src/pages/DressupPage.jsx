@@ -30,6 +30,7 @@ export default function DressupPage({
     selectedCharacter,
     selectedCharacterId,
     selectedTopOutfitId,
+    selectedTopOutfit,
     selectBottomOutfit,
     selectCharacter,
     selectTopOutfit,
@@ -46,12 +47,21 @@ export default function DressupPage({
       selectedBottomOutfitId &&
       selectedTopOutfitId === selectedBottomOutfitId,
   );
+  const isMysterySelection =
+    selectedTopOutfit?.isHidden ||
+    [selectedTopOutfit?.id, selectedTopOutfit?.setId].some((value) =>
+      String(value ?? "").includes("mystery"),
+    );
   const statusText = message
     ? message
     : canConfirmDressup
       ? result
-        ? "视频已生成，可以继续调整或查看成就。"
-        : "搭配完成，点击确认入画。"
+        ? isMysterySelection
+          ? "神秘画卷已展开，可以继续探索成就。"
+          : "视频已生成，可以继续调整或查看成就。"
+        : isMysterySelection
+          ? "神秘画卷正在展开……"
+          : "搭配完成，点击确认入画。"
       : hasCompleteSelection
         ? "上下装需要来自同一套。"
         : "选好角色、上装和下装后即可确认。";
@@ -104,7 +114,7 @@ export default function DressupPage({
             disabled={!canConfirmDressup}
           >
             <span className="material-symbols-outlined">check_circle</span>
-            确认搭配
+            进入画中
           </button>
         </div>
 

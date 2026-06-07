@@ -2,6 +2,11 @@ import { useEffect, useState } from "react";
 
 export default function VideoResult({ message, result, selectedCharacter }) {
   const [videoMissing, setVideoMissing] = useState(false);
+  const isMysteryResult =
+    result?.outfit?.isHidden ||
+    [result?.outfit?.id, result?.outfit?.setId].some((value) =>
+      String(value ?? "").includes("mystery"),
+    );
 
   useEffect(() => {
     setVideoMissing(false);
@@ -18,7 +23,7 @@ export default function VideoResult({ message, result, selectedCharacter }) {
   if (!selectedCharacter) {
     return (
       <section className="video-result video-result-message" aria-live="polite">
-        <p>请选择一只小猫。</p>
+        <p>请选择一只灵瑞。</p>
       </section>
     );
   }
@@ -39,10 +44,10 @@ export default function VideoResult({ message, result, selectedCharacter }) {
   }
 
   return (
-    <section className="video-result" aria-label="画中视频结果">
+    <section className={`video-result${isMysteryResult ? " video-result-mystery" : ""}`} aria-label="画中视频结果">
       {videoMissing ? (
         <div className="video-placeholder">
-          <strong>视频生成中</strong>
+          <strong>{isMysteryResult ? "隐藏画面制作中……" : "画卷展开中……"}</strong>
           <span>{result.outfit.name}</span>
         </div>
       ) : (
@@ -58,7 +63,11 @@ export default function VideoResult({ message, result, selectedCharacter }) {
       )}
       <div className="video-result-meta">
         <h2>{result.outfit.resultText ?? result.outfit.name}</h2>
-        <p>{result.outfit.sourcePainting} · {result.outfit.sourceRole}</p>
+        <p>
+          {isMysteryResult
+            ? "神秘画卷 · 隐藏形态"
+            : `${result.outfit.sourcePainting} · ${result.outfit.sourceRole}`}
+        </p>
       </div>
     </section>
   );

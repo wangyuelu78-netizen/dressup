@@ -1,5 +1,11 @@
 import { useState } from "react";
 
+function isMysteryOutfit(outfit) {
+  return outfit.isHidden || [outfit.id, outfit.setId, outfit.top, outfit.bottom].some((value) =>
+    String(value ?? "").includes("mystery"),
+  );
+}
+
 function ItemBubble({ item, selected, onEquipItem }) {
   const [missing, setMissing] = useState(false);
 
@@ -33,27 +39,37 @@ function ItemBubble({ item, selected, onEquipItem }) {
 
 function OutfitPartButton({ image, label, outfit, selected, onClick }) {
   const [missing, setMissing] = useState(false);
+  const mystery = isMysteryOutfit(outfit);
+  const displayName = mystery ? (label === "上衣" ? "神秘上装" : "神秘下装") : outfit.name;
+  const sourceRole = mystery ? "？？？" : outfit.sourceRole;
+  const sourcePainting = mystery ? "？？？" : outfit.sourcePainting;
+  const tag = mystery ? (outfit.tag ?? "隐藏") : label;
 
   return (
     <button
-      className={`gf-item-card wardrobe-card${selected ? " gf-item-card-active wardrobe-card-active" : ""}`}
+      className={`gf-item-card wardrobe-card${mystery ? " wardrobe-card-mystery" : ""}${selected ? " gf-item-card-active wardrobe-card-active" : ""}`}
       type="button"
       onClick={onClick}
       aria-pressed={selected}
+      title={mystery ? "也许完整选择后会发生什么……" : `${outfit.name}（${outfit.sourcePainting}·${outfit.sourceRole}）`}
     >
-      <span className="gf-item-thumb" aria-hidden="true">
+      {mystery && <span className="wardrobe-hidden-badge">隐藏</span>}
+      <span className={`gf-item-thumb${mystery ? " gf-item-thumb-mystery" : ""}`} aria-hidden="true">
         {missing ? (
-          <span>素材缺失</span>
+          <span className={mystery ? "mystery-silhouette" : ""}>
+            {mystery ? "？？？" : "素材缺失"}
+          </span>
         ) : (
           <img src={image} alt="" onError={() => setMissing(true)} />
         )}
       </span>
       <span className="gf-item-info">
-        <strong>{outfit.name}</strong>
-        <small className="wardrobe-part-label">{label}</small>
-        <small>{outfit.sourceRole}</small>
-        <small>{outfit.sourcePainting}</small>
+        <strong>{displayName}</strong>
+        <small className="wardrobe-part-label">{tag}</small>
+        <small>{sourceRole}</small>
+        <small>{sourcePainting}</small>
       </span>
+      {mystery && <span className="wardrobe-hover-hint">也许完整选择后会发生什么……</span>}
       {selected && (
         <span className="wardrobe-check" aria-hidden="true">
           <span className="material-symbols-outlined">check</span>

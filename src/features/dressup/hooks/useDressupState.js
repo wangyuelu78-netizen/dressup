@@ -8,7 +8,7 @@ import { videoMap } from "../../../data/videos.ts";
 import { findClosestAchievement } from "../../achievements/utils/findClosestAchievement.js";
 import { findUnlockedAchievement } from "../../achievements/utils/findUnlockedAchievement.js";
 
-const mismatchMessage = "上下装不是同一套，暂时无法进入画中。";
+const mismatchMessage = "上下装不是同一套，暂时无法进入画中";
 const multiEquipCategories = new Set(["accessory"]);
 
 function buildFeedback(achievement, status = "unlocked", matchedItemCount = 0) {

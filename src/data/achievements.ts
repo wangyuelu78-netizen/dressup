@@ -2,10 +2,14 @@ export interface Achievement {
   id: string;
   title: string;
   subtitle: string;
+  requiredCharacterId?: string;
+  requiredOutfitId?: string;
   sourcePainting: string;
   sourceRole: string;
   description: string;
   imageSrc?: string;
+  achievementImage?: string;
+  isHidden?: boolean;
   scene?: string;
 }
 
@@ -74,6 +78,34 @@ const achievementById: Record<string, Achievement> = {
       "头饰、长袍与束带组合成鼓掌女形象，表现夜宴场景中观演互动与人物群像的细节。",
     scene: "夜宴厅堂",
   },
+  bixie_mystery_dancer: {
+    id: "bixie_mystery_dancer",
+    title: "隐藏成就：舞娘",
+    subtitle: "旋转跳跃，我闭着眼",
+    requiredCharacterId: "black_cat",
+    requiredOutfitId: "mystery",
+    sourcePainting: "韩熙载夜宴图",
+    sourceRole: "舞娘",
+    description: "辟邪误入夜宴画卷，旋身起舞，解锁隐藏舞娘形态。",
+    imageSrc: "/assets/achievements/mystery/bixie_mystery_dancer.png",
+    achievementImage: "/assets/achievements/mystery/bixie_mystery_dancer.png",
+    isHidden: true,
+    scene: "隐藏画卷",
+  },
+  jiuwei_mystery_luoshen: {
+    id: "jiuwei_mystery_luoshen",
+    title: "隐藏成就：洛神",
+    subtitle: "翩若惊鸿，婉若游龙",
+    requiredCharacterId: "pink_cat",
+    requiredOutfitId: "mystery",
+    sourcePainting: "宋人摹顾恺之《洛神赋图》",
+    sourceRole: "洛神",
+    description: "九尾步入神秘画卷，化身洛神，姿容绝世。",
+    imageSrc: "/assets/achievements/mystery/jiuwei_mystery_luoshen.png",
+    achievementImage: "/assets/achievements/mystery/jiuwei_mystery_luoshen.png",
+    isHidden: true,
+    scene: "隐藏画卷",
+  },
 };
 
 export const achievements: Achievement[] = Object.values(achievementById);
@@ -87,4 +119,6 @@ export const achievementMap: Record<string, Achievement> = {
   black_cat_qingming_delivery: achievementById.qingming_delivery_01,
   pink_cat_yide_attendant: achievementById.yide_prince_horse,
   black_cat_yide_attendant: achievementById.yide_prince_horse,
+  black_cat_mystery: achievementById.bixie_mystery_dancer,
+  pink_cat_mystery: achievementById.jiuwei_mystery_luoshen,
 };

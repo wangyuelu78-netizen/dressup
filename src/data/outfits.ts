@@ -1,12 +1,15 @@
 export interface Outfit {
   id: string;
   name: string;
+  displayName?: string;
   sourcePainting: string;
   sourceRole: string;
   resultText: string;
   setId: string;
   top: string;
   bottom: string;
+  isHidden?: boolean;
+  tag?: string;
 }
 
 export const outfits: Outfit[] = [
@@ -49,5 +52,18 @@ export const outfits: Outfit[] = [
     setId: "tang_yide_horse_attendant_01",
     top: "/assets/items/tang_yide/horse_attendant_01/top.png",
     bottom: "/assets/items/tang_yide/horse_attendant_01/bottom.png",
+  },
+  {
+    id: "mystery",
+    name: "神秘套装",
+    displayName: "？？？",
+    sourcePainting: "？？？",
+    sourceRole: "？？？",
+    resultText: "神秘画卷 / 隐藏形态",
+    setId: "mystery",
+    top: "/assets/items/mystery/silhouette_01/top.png",
+    bottom: "/assets/items/mystery/silhouette_01/bottom.png",
+    isHidden: true,
+    tag: "隐藏",
   },
 ];

@@ -7,4 +7,6 @@ export const videoMap: Record<string, string> = {
   black_cat_tang_lady: "/assets/videos/black_cat_tang_lady.mp4",
   black_cat_qingming_delivery: "/assets/videos/black_cat_qingming_delivery.mp4",
   black_cat_yide_attendant: "/assets/videos/black_cat_yide_attendant.mp4",
+  black_cat_mystery: "/assets/videos/mystery/bixie_mystery_dancer.mp4",
+  pink_cat_mystery: "/assets/videos/mystery/jiuwei_mystery_luoshen.mp4",
 };

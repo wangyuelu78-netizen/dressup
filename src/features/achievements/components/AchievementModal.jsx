@@ -7,6 +7,29 @@ const fallbackAchievement = {
   sourceRole: "试试同一幅画里的服饰元素",
 };
 
+function getAchievementTone(achievement) {
+  const text = [
+    achievement?.id,
+    achievement?.title,
+    achievement?.sourcePainting,
+    achievement?.sourceRole,
+  ].join(" ");
+
+  if (/洛神|九尾/.test(text)) {
+    return "achievement-tone-luoshen";
+  }
+
+  if (/舞娘|舞女|夜宴|辟邪/.test(text)) {
+    return "achievement-tone-night";
+  }
+
+  if (/mystery|隐藏|神秘/.test(text)) {
+    return "achievement-tone-mystery";
+  }
+
+  return "achievement-tone-default";
+}
+
 export default function AchievementModal({
   feedback,
   open,
@@ -16,22 +39,24 @@ export default function AchievementModal({
   const achievement = feedback?.achievement ?? fallbackAchievement;
   const status = feedback?.status ?? "unlocked";
   const isUnlocked = status === "unlocked";
-  const title = isUnlocked ? "成就解锁！" : "接近成就";
+  const title = isUnlocked ? "成就解锁" : "接近成就";
+  const achievementTone = getAchievementTone(achievement);
 
   return (
     <Modal
       hideHeader
       open={open}
-      panelClassName="achievement-unlock-panel"
+      panelClassName={`achievement-unlock-panel ${achievementTone}`}
       title={title}
       onClose={onClose}
     >
       {feedback && (
-        <div className="achievement-unlock-card">
+        <div className={`achievement-unlock-card ${achievementTone}`}>
           <h2>{title}</h2>
 
           <div className="achievement-unlock-copy">
             <h3>{achievement.title}</h3>
+            <p>{achievement.sourcePainting} · {achievement.sourceRole}</p>
           </div>
 
           <div className="achievement-unlock-actions">
