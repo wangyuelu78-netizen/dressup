@@ -52,12 +52,14 @@ export default function VideoResult({ message, result, selectedCharacter }) {
         </div>
       ) : (
         <video
+          key={result.videoSrc}
           src={result.videoSrc}
           aria-label={`${result.outfit.name}动态画面`}
           autoPlay
           muted
           loop
           playsInline
+          onLoadedData={() => setVideoMissing(false)}
           onError={() => setVideoMissing(true)}
         />
       )}

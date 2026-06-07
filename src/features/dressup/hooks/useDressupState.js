@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { achievementMap, achievements } from "../../../data/achievements.ts";
 import { characters } from "../../../data/characters.ts";
 import { items, itemCategories } from "../../../data/items.ts";
@@ -32,6 +32,7 @@ export default function useDressUpState({
   const [message, setMessage] = useState("");
   const [result, setResult] = useState(null);
   const [activeAchievementFeedback, setActiveAchievementFeedback] = useState(null);
+  const hiddenAchievementTimerRef = useRef(null);
 
   const unlockedAchievementSet = useMemo(
     () => new Set(unlockedAchievementIds),
@@ -66,6 +67,14 @@ export default function useDressUpState({
   const unlockedAchievement = activeAchievementFeedback?.achievement ?? null;
   const currentSource = result?.achievement ?? result?.outfit ?? equippedItems.at(-1) ?? null;
 
+  useEffect(() => {
+    return () => {
+      if (hiddenAchievementTimerRef.current) {
+        window.clearTimeout(hiddenAchievementTimerRef.current);
+      }
+    };
+  }, []);
+
   function unlockAchievement(achievement) {
     if (!achievement) {
       return;
@@ -79,6 +88,17 @@ export default function useDressUpState({
     setActiveAchievementFeedback(
       buildFeedback(achievement, "unlocked", matchedSet?.requiredItemIds.length ?? 0),
     );
+  }
+
+  function queueHiddenAchievement(achievement) {
+    if (hiddenAchievementTimerRef.current) {
+      window.clearTimeout(hiddenAchievementTimerRef.current);
+    }
+
+    hiddenAchievementTimerRef.current = window.setTimeout(() => {
+      unlockAchievement(achievement);
+      hiddenAchievementTimerRef.current = null;
+    }, 1800);
   }
 
   function buildResult(characterId, outfitId) {
@@ -101,6 +121,10 @@ export default function useDressUpState({
 
   function evaluateSelection(nextCharacterId, nextTopOutfitId, nextBottomOutfitId) {
     setActiveAchievementFeedback(null);
+    if (hiddenAchievementTimerRef.current) {
+      window.clearTimeout(hiddenAchievementTimerRef.current);
+      hiddenAchievementTimerRef.current = null;
+    }
 
     if (!nextCharacterId || !nextTopOutfitId || !nextBottomOutfitId) {
       setMessage("");
@@ -136,6 +160,11 @@ export default function useDressUpState({
     setResult(nextResult);
 
     if (nextResult?.achievement) {
+      if (nextResult.achievement.isHidden) {
+        queueHiddenAchievement(nextResult.achievement);
+        return;
+      }
+
       unlockAchievement(nextResult.achievement);
       return;
     }
@@ -239,6 +268,10 @@ export default function useDressUpState({
     setMessage("");
     setResult(null);
     setActiveAchievementFeedback(null);
+    if (hiddenAchievementTimerRef.current) {
+      window.clearTimeout(hiddenAchievementTimerRef.current);
+      hiddenAchievementTimerRef.current = null;
+    }
   }
 
   return {
