@@ -33,7 +33,7 @@ export default function VideoResult({ message, result, selectedCharacter }) {
             event.currentTarget.style.display = "none";
           }}
         />
-        <p>选择同一套上衣和下装后，预生成视频会显示在这里。</p>
+        <p>请选择同一套上装和下装</p>
       </section>
     );
   }

@@ -1712,3 +1712,59 @@ button:focus-visible {
     min-height: 0;
   }
 }
+
+/* Keep the mini-game layout consistent in full browser windows. */
+.mini-screen {
+  width: min(100vw, 430px);
+  min-height: 100vh;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+}
+
+.mini-tabbar {
+  width: min(100vw, 430px);
+  bottom: 0;
+  grid-template-columns: repeat(3, 1fr);
+  border-radius: 0;
+}
+
+.mini-page {
+  padding: 16px 14px 98px;
+}
+
+.gf-dressup {
+  gap: 12px;
+}
+
+.gf-game-header {
+  padding: 14px;
+}
+
+.gf-game-header .page-title {
+  font-size: 25px;
+}
+
+.gf-game-header .page-copy {
+  font-size: 12px;
+}
+
+.character-selector,
+.gf-stage-zone {
+  grid-template-columns: 1fr;
+}
+
+.video-result-message,
+.video-result-placeholder {
+  min-height: 360px;
+}
+
+.video-result video,
+.video-placeholder,
+.video-result-placeholder img {
+  width: 100%;
+}
+
+.wardrobe-row {
+  grid-auto-columns: minmax(132px, 150px);
+}
